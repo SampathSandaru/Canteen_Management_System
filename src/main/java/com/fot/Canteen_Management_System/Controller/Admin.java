@@ -7,9 +7,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class Admin {
 
-    @RequestMapping(path = "/",method = RequestMethod.GET)
+    @RequestMapping(path = "/dash",method = RequestMethod.GET)
     public String home(){
+        return "canteenManager/dash";
+    }
 
-        return "test";
+    @RequestMapping(path = "newOrder",method = RequestMethod.GET)
+    public String newOrder(){
+        return "canteenManager/NewOrder";
     }
 }

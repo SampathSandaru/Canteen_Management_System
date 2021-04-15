@@ -117,9 +117,10 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
+                            <a class="nav-link" ><i class="fa fa- user"></i><samp th:text="${users.get(1)}"></samp></a>
                             <a class="nav-link" ><i class="fa fa- user"></i>My Profile</a>
 
-                            <a class="nav-link" ><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" th:href="@{logout}"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
 

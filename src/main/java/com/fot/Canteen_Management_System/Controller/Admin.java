@@ -17,7 +17,7 @@ public class Admin {
         model.addAttribute("users",users);
 
         if(users==null){
-            return "redirect:/login";
+            return "redirect:/loginpage";
         }else{
             return "canteenManager/dash";
         }

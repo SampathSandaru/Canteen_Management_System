@@ -24,7 +24,7 @@ public class UserController {
         return "test";
     }
 
-    @RequestMapping(path = "/login",method = RequestMethod.GET)
+    @RequestMapping(path = "/loginpage",method = RequestMethod.GET)
     public String login(Model model){
         User user=new User();
         model.addAttribute("user",user);
@@ -41,7 +41,7 @@ public class UserController {
     @RequestMapping(path = "/reg_user",method = RequestMethod.POST)
     public String reg_new_user(@ModelAttribute("User") User user){
         userService.save(user);
-        return "login";
+        return "redirect:/loginpage";
     }
 
     @PostMapping("/login")
@@ -63,9 +63,16 @@ public class UserController {
 
             request.getSession().setAttribute("USER_SESSION",users);
 
-            return "redirect:/dash";
+            if(newuser.getRole().equals("canteenmanager")){
+                return "redirect:/dash";
+            }else if(newuser.getRole().equals("user")){
+                return "redirect:/item";
+            }else{
+                return "redirect:/";
+            }
+
         }else{
-            return "redirect:/login?error";
+            return "redirect:/loginpage?error";
         }
 
     }
@@ -74,12 +81,19 @@ public class UserController {
     public String logout(HttpServletRequest request)
     {
         request.getSession().invalidate();
-        return "redirect:/login";
+        return "redirect:/loginpage";
     }
 
     @RequestMapping(path = "item",method = RequestMethod.GET)
-    public String home(){
-        return "User/item";
+    public String home(Model model,HttpSession session){
+        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+
+        if(users==null){
+            return "redirect:/loginpage";
+        }else{
+            model.addAttribute("users",users);
+            return "User/item";
+        }
     }
 
     @RequestMapping(path = "userdash",method = RequestMethod.GET)

@@ -15,11 +15,11 @@
             Login
           </div>
           <div class="card-body">
-            <form>
+            <form method="post" th:action="@{/login}" th:object="${user}">
               <label>Email</label>
-              <input type="email" class="form-control">
+              <input type="email" class="form-control" th:field="*{email}">
               <label>Password</label>
-              <input type="password" class="form-control">
+              <input type="password" class="form-control" th:field="*{password}">
               <input type="submit" class="btn btn-primary mt-3 w-25" value="Sign in">
               <samp><a class="nav-link" href="">Forget Password ?</a> </samp>
             </form>

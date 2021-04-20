@@ -1,0 +1,38 @@
+package com.fot.Canteen_Management_System.Services;
+
+import com.fot.Canteen_Management_System.Entity.Item;
+import com.fot.Canteen_Management_System.Repository.ItemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ItemService {
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    public void save(Item item){
+        itemRepository.save(item);
+    }
+
+    public List<Item> getAllItem(){
+        return (List<Item>) itemRepository.findAll();
+    }
+
+    public void delete(Integer id){
+        itemRepository.deleteById(id);
+    }
+
+    public void update(Integer id,Item item){
+        Item newitem=itemRepository.findById(id).get();
+        if(itemRepository.findById(id).isPresent()){
+            newitem.setItem_name(item.getItem_name());
+            newitem.setPrice(item.getPrice());
+            newitem.setQuantity(item.getQuantity());
+
+            itemRepository.save(newitem);
+        }
+    }
+}

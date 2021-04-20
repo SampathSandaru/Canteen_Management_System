@@ -60,6 +60,7 @@ public class UserController {
             users.add(newuser.getId().toString());
             users.add(newuser.getName());
             users.add(newuser.getEmail());
+            users.add(newuser.getRole());
 
             request.getSession().setAttribute("USER_SESSION",users);
 

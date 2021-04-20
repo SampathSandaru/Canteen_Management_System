@@ -12,7 +12,8 @@
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet"
@@ -37,7 +38,7 @@
         }
 
         .card:hover {
-            transform: scale(1.03);
+            transform: scale(1.02);
             transition: 0.6s;
         }
 
@@ -55,7 +56,7 @@
             <div class="row m-0">
                 <div class="col-sm-4">
                     <div class="page-header float-left">
-                        <div class="page-title">
+                        <div class="page-title ui-widget-shadow">
                             <h1>Canteen Manager Dashboard</h1>
                         </div>
                     </div>
@@ -66,33 +67,56 @@
     <div class="content">
         <!-- Animated -->
         <div class="animated fadeIn">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Add Item
+                        </div>
+                        <div class="card-body">
+                            <form class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">Itema</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label">Itema</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card-deck">
-<!--                        <div class=" col-md-3" th:each="note:${notes}">-->
-                            <div class="card border-primary mb-3  h-95">
-                                <h5 class="card-header bg-info text-white" ></h5>
-                                <div class="card-body">
-                                    <div>
-                                        <a
-                                           target="_blank" title="Download"><i
-                                                class="far fa-file-pdf fa-2x red-c mr-2 color-red"></i><span
-                                                ></span></a>
-                                    </div>
-                                    <hr>
-                                    <span ></span>
 
-                                </div>
-                                <div class="card-footer">
-                                    <span class="text-muted">Uploaded date : </span><small class="text-muted"></small>
-                                </div>
+                    </div>
+                    <!-- <div class=" col-md-3" th:each="note:${notes}">-->
+                    <div class="card border-primary mb-3  h-95">
+                        <h5 class="card-header bg-info text-white"></h5>
+                        <div class="card-body">
+                            <div>
+                                <a target="_blank" title="Download"><i
+                                        class="far fa-file-pdf fa-2x red-c mr-2 color-red"></i><span></span></a>
                             </div>
+                            <hr>
+                            <span></span>
+
+                        </div>
+                        <div class="card-footer">
+                            <span class="text-muted">Uploaded date : </span><small class="text-muted"></small>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 <!--End Content-->
 <!-- jquery

@@ -5,6 +5,8 @@ import com.fot.Canteen_Management_System.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -18,5 +20,10 @@ public class UserService {
     public User login(String email,String password){
         User user=userRepository.findByEmailAndPassword(email,password);
         return user;
+    }
+
+    public Integer getusercount(){
+        List<User> users= (List<User>) userRepository.findAll();
+        return  users.size();
     }
 }

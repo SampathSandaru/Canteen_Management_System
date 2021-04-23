@@ -69,46 +69,74 @@
         <div class="animated fadeIn">
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-lg-3 col-md-6">
                     <div class="card">
-                        <div class="card-header">
-                            Add Item
-                        </div>
                         <div class="card-body">
-                            <form class="row">
-                                <div class="col-md-6">
-                                    <label class="form-label">Itema</label>
-                                    <input type="text" class="form-control">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-1">
+                                    <i class="fas fa-utensils"></i>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label class="form-label">Itema</label>
-                                    <input type="text" class="form-control">
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-text"><span class="count" th:text="${itemcount}"></span></div>
+                                        <div class="stat-heading">Food</div>
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card-deck">
-
-                    </div>
-                    <!-- <div class=" col-md-3" th:each="note:${notes}">-->
-                    <div class="card border-primary mb-3  h-95">
-                        <h5 class="card-header bg-info text-white"></h5>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
                         <div class="card-body">
-                            <div>
-                                <a target="_blank" title="Download"><i
-                                        class="far fa-file-pdf fa-2x red-c mr-2 color-red"></i><span></span></a>
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-2">
+                                    <i class="pe-7s-cart"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-text"><span class="count">3435</span></div>
+                                        <div class="stat-heading">New Order</div>
+                                    </div>
+                                </div>
                             </div>
-                            <hr>
-                            <span></span>
-
                         </div>
-                        <div class="card-footer">
-                            <span class="text-muted">Uploaded date : </span><small class="text-muted"></small>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-3">
+                                    <i class="pe-7s-browser"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-text"><span class="count">349</span></div>
+                                        <div class="stat-heading">Templates</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-4">
+                                    <i class="pe-7s-users"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-text"><span class="count" th:text="${usercount}"></span></div>
+                                        <div class="stat-heading">User</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

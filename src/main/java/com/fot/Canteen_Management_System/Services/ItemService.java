@@ -21,6 +21,11 @@ public class ItemService {
         return (List<Item>) itemRepository.findAll();
     }
 
+    public Integer allItemCount(){
+       List<Item> item= (List<Item>) itemRepository.findAll();
+       return item.size();
+    }
+
     public void delete(Integer id){
         itemRepository.deleteById(id);
     }
@@ -35,4 +40,8 @@ public class ItemService {
             itemRepository.save(newitem);
         }
     }
+
+//    public List<Item> getuserItem(){
+//        return (List<Item>) itemRepository.findavailableitem();
+//    }
 }

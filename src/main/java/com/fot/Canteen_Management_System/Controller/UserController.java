@@ -1,6 +1,7 @@
 package com.fot.Canteen_Management_System.Controller;
 
 import com.fot.Canteen_Management_System.Entity.User;
+import com.fot.Canteen_Management_System.Services.ItemService;
 import com.fot.Canteen_Management_System.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ItemService itemService;
 
     @GetMapping("/")
     public String index(){
@@ -67,7 +70,7 @@ public class UserController {
             if(newuser.getRole().equals("canteenmanager")){
                 return "redirect:/dash";
             }else if(newuser.getRole().equals("user")){
-                return "redirect:/item";
+                return "redirect:/userdash";
             }else{
                 return "redirect:/";
             }
@@ -89,16 +92,21 @@ public class UserController {
     public String home(Model model,HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
 
+
         if(users==null){
             return "redirect:/loginpage";
         }else{
+//            model.addAttribute("items",itemService.getuserItem());
             model.addAttribute("users",users);
             return "User/item";
         }
     }
 
-    @RequestMapping(path = "userdash",method = RequestMethod.GET)
-    public String userdash(){
+    @GetMapping("userdash")
+    public String userdash(Model model,HttpSession session){
+        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+
+        model.addAttribute("users",users);
         return "User/user_dash";
     }
 }

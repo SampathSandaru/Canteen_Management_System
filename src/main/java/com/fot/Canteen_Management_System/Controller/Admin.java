@@ -2,6 +2,7 @@ package com.fot.Canteen_Management_System.Controller;
 
 import com.fot.Canteen_Management_System.Entity.Item;
 import com.fot.Canteen_Management_System.Services.ItemService;
+import com.fot.Canteen_Management_System.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,16 +17,20 @@ public class Admin {
 
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(path = "/dash",method = RequestMethod.GET)
     public String home(Model model, HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+
+        model.addAttribute("itemcount",itemService.allItemCount());
+        model.addAttribute("usercount",userService.getusercount());
         model.addAttribute("users",users);
 
         if(users==null){
             return "redirect:/loginpage";
         }else if(users.get(3).equals("canteenmanager")){
-//            System.out.println(users.get(3));
             return "canteenManager/dash";
         }else{
             return "redirect:/?access denied";

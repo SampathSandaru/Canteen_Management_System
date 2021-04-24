@@ -9,6 +9,6 @@ import java.util.Collection;
 
 @Repository
 public interface ItemRepository extends CrudRepository<Item,Integer> {
-//    @Query(value =  "SELECT i FROM Item i WHERE i.quantity>0")
-//    Collection<Item> findavailableitem();
+    @Query(value =  "SELECT i FROM Item i WHERE i.quantity>0")
+    Collection<Item> findavailableitem();
 }

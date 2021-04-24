@@ -92,11 +92,10 @@ public class UserController {
     public String home(Model model,HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
 
-
         if(users==null){
             return "redirect:/loginpage";
         }else{
-//            model.addAttribute("items",itemService.getuserItem());
+            model.addAttribute("items",itemService.getuserItem());
             model.addAttribute("users",users);
             return "User/item";
         }

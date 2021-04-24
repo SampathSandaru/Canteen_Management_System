@@ -41,7 +41,7 @@ public class ItemService {
         }
     }
 
-//    public List<Item> getuserItem(){
-//        return (List<Item>) itemRepository.findavailableitem();
-//    }
+    public List<Item> getuserItem(){
+        return (List<Item>) itemRepository.findavailableitem();
+    }
 }

@@ -14,7 +14,7 @@ public class OrderItem {
     private Integer item_id;
     private Integer quantity;
     private float price;
-    private Integer Status;
+    private Integer Status=0;
 
     public Integer getId() {
         return id;

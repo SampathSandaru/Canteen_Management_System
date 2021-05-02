@@ -1,7 +1,9 @@
 package com.fot.Canteen_Management_System.Controller;
 
 import com.fot.Canteen_Management_System.Entity.Item;
+import com.fot.Canteen_Management_System.Entity.OrderItem;
 import com.fot.Canteen_Management_System.Services.ItemService;
+import com.fot.Canteen_Management_System.Services.OrderItemService;
 import com.fot.Canteen_Management_System.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ public class Admin {
     private ItemService itemService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderItemService orderItemService;
 
     @RequestMapping(path = "/dash",method = RequestMethod.GET)
     public String home(Model model, HttpSession session){
@@ -40,7 +44,10 @@ public class Admin {
     @RequestMapping(path = "newOrder",method = RequestMethod.GET)
     public String newOrder(Model model, HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+        List<OrderItem> orderItems=orderItemService.getNewOrder();
+
         model.addAttribute("users",users);
+        model.addAttribute("neworder",orderItems);
 
         if(users==null){
             return "redirect:/loginpage";

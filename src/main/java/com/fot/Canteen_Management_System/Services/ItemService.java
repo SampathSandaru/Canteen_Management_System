@@ -1,6 +1,7 @@
 package com.fot.Canteen_Management_System.Services;
 
 import com.fot.Canteen_Management_System.Entity.Item;
+import com.fot.Canteen_Management_System.Entity.OrderItem;
 import com.fot.Canteen_Management_System.Repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,4 +45,9 @@ public class ItemService {
     public List<Item> getuserItem(){
         return (List<Item>) itemRepository.findavailableitem();
     }
+
+    public void reduce(Integer quantity,Integer item_id){
+        itemRepository.reduceItem(quantity,item_id);
+    }
+
 }

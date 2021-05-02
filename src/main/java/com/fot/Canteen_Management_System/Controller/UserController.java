@@ -1,7 +1,9 @@
 package com.fot.Canteen_Management_System.Controller;
 
+import com.fot.Canteen_Management_System.Entity.OrderItem;
 import com.fot.Canteen_Management_System.Entity.User;
 import com.fot.Canteen_Management_System.Services.ItemService;
+import com.fot.Canteen_Management_System.Services.OrderItemService;
 import com.fot.Canteen_Management_System.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private OrderItemService orderItemService;
 
     @GetMapping("/")
     public String index(){
@@ -91,12 +95,14 @@ public class UserController {
     @RequestMapping(path = "item",method = RequestMethod.GET)
     public String home(Model model,HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+        OrderItem orderItem=new OrderItem();
 
         if(users==null){
             return "redirect:/loginpage";
         }else{
             model.addAttribute("items",itemService.getuserItem());
             model.addAttribute("users",users);
+            model.addAttribute("order_item",orderItem);
             return "User/item";
         }
     }
@@ -107,5 +113,19 @@ public class UserController {
 
         model.addAttribute("users",users);
         return "User/user_dash";
+    }
+
+    @RequestMapping(path = "/orderitem",method = RequestMethod.POST)
+    public String orderitem(@ModelAttribute("OrderItem")OrderItem orderItem, HttpSession session){
+        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+        orderItem.setU_id(Integer.parseInt(users.get(0)));
+
+        float tot=orderItem.getQuantity()*orderItem.getPrice();
+        orderItem.setPrice(tot);
+        itemService.reduce(orderItem.getQuantity(),orderItem.getItem_id());
+
+        orderItemService.save(orderItem);
+
+        return "redirect:/item";
     }
 }

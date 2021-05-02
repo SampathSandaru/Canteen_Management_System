@@ -30,6 +30,7 @@ public class ItemController {
 
         }
         item.setImg_path(file.getOriginalFilename());
+        System.out.println(item.getItem_id());
         itemService.save(item);
         return "redirect:/canteenmanager_item";
     }

@@ -34,6 +34,7 @@ public class Admin {
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
 
         model.addAttribute("itemcount",itemService.allItemCount());
+        model.addAttribute("newOrderCount",orderItemService.newOrderCount());
         model.addAttribute("usercount",userService.getusercount());
         model.addAttribute("users",users);
 
@@ -49,13 +50,13 @@ public class Admin {
     @RequestMapping(path = "newOrder",method = RequestMethod.GET)
     public String newOrder(Model model, HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
-        List<OrderItem> orderItems=orderItemService.getNewOrder();
+//        List<OrderItem> orderItems=orderItemService.getNewOrder();
 
         List<OrderItemDto> user_Order_item= orderItemRepository.getorder(); //join query
 
         model.addAttribute("user_Order_item",user_Order_item);
         model.addAttribute("users",users);
-        model.addAttribute("neworder",orderItems);
+//        model.addAttribute("neworder",orderItems);
 
         if(users==null){
             return "redirect:/loginpage";

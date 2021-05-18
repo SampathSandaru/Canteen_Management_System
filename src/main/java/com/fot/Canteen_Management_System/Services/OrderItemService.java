@@ -3,6 +3,7 @@ package com.fot.Canteen_Management_System.Services;
 
 
 import com.fot.Canteen_Management_System.Dto.OrderItemDto;
+import com.fot.Canteen_Management_System.Entity.Item;
 import com.fot.Canteen_Management_System.Entity.OrderItem;
 
 import com.fot.Canteen_Management_System.Repository.OrderItemRepository;
@@ -10,6 +11,7 @@ import com.fot.Canteen_Management_System.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -23,11 +25,18 @@ public class OrderItemService {
         orderItemRepository.save(orderItem);
     }
 
-    public List<OrderItem> getNewOrder(){
-        return (List<OrderItem>) orderItemRepository.getNewOrder();
+//    public List<OrderItem> getNewOrder(){
+//        return (List<OrderItem>) orderItemRepository.getNewOrder();
+//    }
+
+    public Integer newOrderCount(){
+        Collection<OrderItem> item=orderItemRepository.newOrderCount();
+        return item.size();
     }
 
-    public  List< OrderItemDto> getdata(){
-        return orderItemRepository.getorder();
-    }
+//    public  List<OrderItemDto> getdata(){
+//        return orderItemRepository.getorder();
+//    }
+
+
 }

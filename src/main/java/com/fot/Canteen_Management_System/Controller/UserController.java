@@ -1,7 +1,9 @@
 package com.fot.Canteen_Management_System.Controller;
 
+import com.fot.Canteen_Management_System.Dto.OrderItemDto;
 import com.fot.Canteen_Management_System.Entity.OrderItem;
 import com.fot.Canteen_Management_System.Entity.User;
+import com.fot.Canteen_Management_System.Repository.OrderItemRepository;
 import com.fot.Canteen_Management_System.Services.ItemService;
 import com.fot.Canteen_Management_System.Services.OrderItemService;
 import com.fot.Canteen_Management_System.Services.UserService;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +28,8 @@ public class UserController {
     private ItemService itemService;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @GetMapping("/")
     public String index(){
@@ -80,7 +85,7 @@ public class UserController {
             }
 
         }else{
-            return "redirect:/loginpage?error";
+            return "redirect:/loginpage?incorrectDetail";
         }
 
     }
@@ -107,6 +112,25 @@ public class UserController {
         }
     }
 
+    @RequestMapping(path = "OrderHistory",method = RequestMethod.GET)
+    public String OrderHistory(Model model,HttpSession session){
+        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+
+        Integer user_id=Integer.parseInt(users.get(0));
+
+        List<OrderItemDto> user_Order_item= orderItemRepository.getorderHistory(user_id); //join query
+
+        if(users==null){
+            return "redirect:/loginpage";
+        }else{
+            model.addAttribute("user_Order_item",user_Order_item);
+            model.addAttribute("items",itemService.getuserItem());
+            model.addAttribute("users",users);
+//            model.addAttribute("order_item",orderItem);
+            return "User/OrderHistory";
+        }
+    }
+
     @GetMapping("userdash")
     public String userdash(Model model,HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
@@ -119,13 +143,15 @@ public class UserController {
     public String orderitem(@ModelAttribute("OrderItem")OrderItem orderItem, HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
         orderItem.setU_id(Integer.parseInt(users.get(0)));
+        LocalDate date = LocalDate.now();
 
         float tot=orderItem.getQuantity()*orderItem.getPrice();
         orderItem.setPrice(tot);
+        orderItem.setOrder_time(date);
         itemService.reduce(orderItem.getQuantity(),orderItem.getItem_id());
 
         orderItemService.save(orderItem);
 
-        return "redirect:/item";
+        return "redirect:/item?ordersuccess";
     }
 }

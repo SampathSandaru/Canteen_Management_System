@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 public class OrderItem {
@@ -15,9 +17,20 @@ public class OrderItem {
     private Integer quantity;
     private float price;
     private Integer Status=0;
+    private LocalDate Order_time;
+
 
     public Integer getId() {
         return id;
+    }
+
+    public LocalDate getOrder_time() {
+        return Order_time;
+    }
+
+    public void setOrder_time(LocalDate order_time) {
+
+        Order_time = order_time;
     }
 
     public void setId(Integer id) {

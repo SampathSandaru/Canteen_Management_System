@@ -71,6 +71,7 @@
               <th>Price</th>
               <th>Quantity</th>
               <th>Mobile</th>
+              <th>Date</th>
               <th>Item</th>
               <th>Item</th>
               <th>Status</th>
@@ -82,6 +83,7 @@
               <td th:text="${items.price}"></td>
               <td th:text="${items.quantity}"></td>
               <td th:text="${items.mobile}"></td>
+              <td th:text="${items.Order_time}"></td>
               <td th:text="${items.Item_name}"></td>
               <td > <img class="card-img-top card_img"
                                                     th:src="@{/Admin/img/item/item_{name}(name= ${items.img_path})}" style="width: 150px;height: 120px"></td>

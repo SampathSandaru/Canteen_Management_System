@@ -16,6 +16,9 @@
           </div>
           <div class="card-body">
             <form method="post" th:action="@{/login}" th:object="${user}">
+              <div class="alert alert-danger" role="alert" th:if="${param.incorrectDetail}">
+                Email or Password incorrect.
+              </div>
               <label>Email</label>
               <input type="email" class="form-control" th:field="*{email}">
               <label>Password</label>

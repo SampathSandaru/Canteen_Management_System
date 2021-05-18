@@ -1,13 +1,16 @@
 package com.fot.Canteen_Management_System.Controller;
 
+import com.fot.Canteen_Management_System.Dto.OrderItemDto;
 import com.fot.Canteen_Management_System.Entity.Item;
 import com.fot.Canteen_Management_System.Entity.OrderItem;
+import com.fot.Canteen_Management_System.Repository.OrderItemRepository;
 import com.fot.Canteen_Management_System.Services.ItemService;
 import com.fot.Canteen_Management_System.Services.OrderItemService;
 import com.fot.Canteen_Management_System.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,6 +26,8 @@ public class Admin {
     private UserService userService;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @RequestMapping(path = "/dash",method = RequestMethod.GET)
     public String home(Model model, HttpSession session){
@@ -46,6 +51,9 @@ public class Admin {
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
         List<OrderItem> orderItems=orderItemService.getNewOrder();
 
+        List<OrderItemDto> user_Order_item= orderItemRepository.getorder(); //join query
+
+        model.addAttribute("user_Order_item",user_Order_item);
         model.addAttribute("users",users);
         model.addAttribute("neworder",orderItems);
 
@@ -65,7 +73,7 @@ public class Admin {
         List<Item> items=itemService.getAllItem();
 
         model.addAttribute("cm_item",item);
-        model.addAttribute("items",items); // list  all item
+        model.addAttribute("items",items); // list  all item  (item page)
         model.addAttribute("users",users);
 
         if(users==null){
@@ -75,5 +83,20 @@ public class Admin {
         }else{
             return "redirect:/?access denied";
         }
+    }
+
+
+    int i;
+
+    @GetMapping(path = "/test1")
+    public String detail(){
+        List<OrderItemDto> list= orderItemRepository.getorder();
+
+
+        for(i=0;i<list.size();i++){
+            System.out.println(list.get(i));
+        }
+
+        return "test";
     }
 }

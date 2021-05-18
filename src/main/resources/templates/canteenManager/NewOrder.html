@@ -32,18 +32,14 @@
       background-color: #faf6f6;
     }
 
-    .card {
-      box-shadow: 6px 4px 6px 0 rgba(0, 0, 0, 0.3), 0 3px 25px 0 rgba(0, 0, 0, 0.2);
+    .card{
+      padding: 10px 10px 10px 10px ;
     }
 
-    .card:hover {
-      transform: scale(1.03);
-      transition: 0.6s;
+    .btn{
+      margin-top: 30px;
     }
 
-    a:hover {
-      text-decoration-line: none;
-    }
   </style>
 </head>
 <body>
@@ -51,7 +47,7 @@
 <!--Start Content-->
 <div id="right-panel" class="right-panel">
   <div class="breadcrumbs">
-    <div class="breadcrumbs-inner">
+    <div class="breadcrumbs-inner shadow">
       <div class="row m-0">
         <div class="col-sm-4">
           <div class="page-header float-left">
@@ -67,18 +63,32 @@
     <div class="animated fadeIn">
       <div class="row">
         <div class="col-md-12">
+          <div class="card shadow">
           <table class="table table-hover">
             <tr>
               <th>NO</th>
               <th>Name</th>
               <th>Price</th>
+              <th>Quantity</th>
+              <th>Mobile</th>
+              <th>Item</th>
+              <th>Item</th>
+              <th>Status</th>
             </tr>
-            <tr th:each="items,i:${neworder}">
+            <tr th:each="items,i:${user_Order_item}">
               <td th:text="${i.count}"></td>
-              <td ></td>
-              <td th:text="${items.getPrice()}"></td>
+<!--              <td ></td>-->
+              <td th:text="${items.name}"></td>
+              <td th:text="${items.price}"></td>
+              <td th:text="${items.quantity}"></td>
+              <td th:text="${items.mobile}"></td>
+              <td th:text="${items.Item_name}"></td>
+              <td > <img class="card-img-top card_img"
+                                                    th:src="@{/Admin/img/item/item_{name}(name= ${items.img_path})}" style="width: 150px;height: 120px"></td>
+              <td><input type="button" class="btn btn-primary" value="Order"></td>
             </tr>
           </table>
+          </div>
         </div>
       </div>
     </div>

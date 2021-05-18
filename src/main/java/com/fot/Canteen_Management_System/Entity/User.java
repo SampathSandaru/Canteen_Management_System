@@ -1,9 +1,7 @@
 package com.fot.Canteen_Management_System.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class User {
@@ -16,6 +14,10 @@ public class User {
     private String role="user";
     private Integer approve=0;
     private Integer mobile;
+
+    @OneToMany(targetEntity = OrderItem.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "u_id",referencedColumnName = "id")
+    private List<OrderItem>  orderItems;
 
     public String getName() {
         return name;

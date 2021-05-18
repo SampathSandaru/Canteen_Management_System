@@ -113,8 +113,8 @@
 
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 <div class="col" th:each="items:${items}">
-                    <div class="card">
-                        <img class="card-img-top card_img"
+                    <div class="card rounded-3">
+                        <img class="card-img-top card_img rounded-top"
                              th:src="@{/Admin/img/item/item_{name}(name= ${items.getImg_path()})}">
                         <div class="card-body ">
                             <div>

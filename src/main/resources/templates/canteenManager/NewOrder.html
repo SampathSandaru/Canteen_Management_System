@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
 <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">-->
   <link rel="stylesheet"
-<!--        href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">-->
+        href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
   <link rel="stylesheet" th:href="@{assets/css/cs-skin-elastic.css}">
   <link rel="stylesheet" th:href="@{assets/css/style.css}">
@@ -40,6 +40,10 @@
 
     .btn{
       margin-top: 30px;
+    }
+
+    td{
+      margin-top: 20px;
     }
 
   </style>
@@ -91,7 +95,7 @@
               <td th:text="${items.Order_time}"></td>
               <td th:text="${items.Item_name}"></td>
               <td > <img class="card-img-top card_img"
-                                                    th:src="@{/Admin/img/item/item_{name}(name= ${items.img_path})}" style="width: 150px;height: 120px"></td>
+                                                    th:src="@{/Admin/img/item/item_{name}(name= ${items.img_path})}" style="width: 150px;height: 120px;border-radius: 20px;"></td>
               <td><input type="button" class="btn btn-primary" value="Order"></td>
             </tr>
           </table>

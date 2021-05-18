@@ -68,7 +68,7 @@
         <div class="animated fadeIn">
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 <div class="col" th:each="items:${user_Order_item}">
-                    <div class="card">
+                    <div class="card rounded">
                         <img class="card-img-top card_img"
                              th:src="@{/Admin/img/item/item_{name}(name= ${items.img_path})}">
                         <div class="card-body ">

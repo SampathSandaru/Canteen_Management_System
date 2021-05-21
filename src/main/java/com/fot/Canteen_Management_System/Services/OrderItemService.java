@@ -26,6 +26,9 @@ public class OrderItemService {
         Collection<OrderItem> item=orderItemRepository.newOrderCount();
         return item.size();
     }
+    public void save(OrderItem orderItem){
+        orderItemRepository.save(orderItem);
+    }
 
 
 }

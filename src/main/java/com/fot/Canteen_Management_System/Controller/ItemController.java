@@ -55,4 +55,7 @@ public class ItemController {
         itemService.update(id,item);
         return "redirect:/canteenmanager_item";
     }
+
+
+
 }

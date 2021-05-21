@@ -26,4 +26,20 @@ public class UserService {
         List<User> users= (List<User>) userRepository.findAll();
         return  users.size();
     }
+
+    public User getUserId(Integer id){
+        return userRepository.findById(id).get();
+    }
+
+    public Boolean updateProfile(Integer id,User user){
+        User user1=userRepository.findById(id).get();
+        if(userRepository.findById(id).isPresent()) {
+            user1.setEmail(user.getEmail());
+            user1.setMobile(user.getMobile());
+            userRepository.save(user1);
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

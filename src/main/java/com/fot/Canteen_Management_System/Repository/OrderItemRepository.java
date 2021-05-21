@@ -17,7 +17,7 @@ public interface OrderItemRepository extends CrudRepository<OrderItem,Integer> {
     @Query(value="SELECT new com.fot.Canteen_Management_System.Dto.OrderItemDto(u.name,o.quantity,i.img_path,o.price,u.mobile,i.Item_name,o.Order_time,o.Status) FROM User u,OrderItem o,Item i WHERE o.u_id=u.id and i.item_id=o.item_id and o.Status=0")
     public List<OrderItemDto> getorder();
 
-    @Query(value="SELECT new com.fot.Canteen_Management_System.Dto.OrderItemDto(u.name,o.quantity,i.img_path,o.price,u.mobile,i.Item_name,o.Order_time,o.Status) FROM User u,OrderItem o,Item i WHERE o.u_id=u.id and i.item_id=o.item_id and u.id=?1")
+    @Query(value="SELECT new com.fot.Canteen_Management_System.Dto.OrderItemDto(u.name,o.quantity,i.img_path,o.price,u.mobile,i.Item_name,o.Order_time,o.Status) FROM User u,OrderItem o,Item i WHERE o.u_id=u.id and i.item_id=o.item_id and u.id=?1 ORDER BY o.Order_time DESC")
     public List<OrderItemDto> getorderHistory(Integer id);
 
     @Query(value = "SELECT o From OrderItem o WHERE o.Status=0")

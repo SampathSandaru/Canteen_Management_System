@@ -19,8 +19,7 @@ public class ItemController {
     private ItemService itemService;
 
     @RequestMapping(path = "/save_item",method = RequestMethod.POST)
-    public String save_item(@ModelAttribute("Item") Item item,@RequestParam("file") MultipartFile file){
-
+    public String save_item(@ModelAttribute("Item")Item item,@RequestParam("file") MultipartFile file){
 
         Path resourceDirectory = Paths.get("src","main","resources","static","Admin","img","item","item_");
         String absolutePath = resourceDirectory.toFile().getAbsolutePath();

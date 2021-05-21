@@ -32,18 +32,6 @@
             background-color: #faf6f6;
         }
 
-        .card {
-            box-shadow: 6px 4px 6px 0 rgba(0, 0, 0, 0.3), 0 3px 25px 0 rgba(0, 0, 0, 0.2);
-        }
-
-        .card:hover {
-            transform: scale(1.03);
-            transition: 0.6s;
-        }
-
-        a:hover {
-            text-decoration-line: none;
-        }
     </style>
 </head>
 <body>
@@ -56,7 +44,7 @@
                 <div class="col-sm-4">
                     <div class="page-header float-left">
                         <div class="page-title">
-                            <h1>Order History</h1>
+                            <h1><i class="fa fa- user"></i><samp th:text="${users.get(1)}"></samp></a></h1>
                         </div>
                     </div>
                 </div>
@@ -66,26 +54,40 @@
     </div>
     <div class="content">
         <div class="animated fadeIn">
-            <div class="row row-cols-1 row-cols-md-5 g-4">
-                <div class="col" th:each="items:${user_Order_item}">
-                    <div class="card rounded">
-                        <img class="card-img-top card_img"
-                             th:src="@{/Admin/img/item/item_{name}(name= ${items.img_path})}">
-                        <div class="card-body ">
-                            <div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Name : <label th:text="${items.Item_name}"></label>
-                                    </li>
-                                    <li class="list-group-item">Quantity : <label
-                                            th:text="${items.quantity}"></label></li>
-                                    <li class="list-group-item">Price : <label th:text="${items.price}"></label>
-                                    </li>
-                                    <li class="list-group-item">Date : <label th:text="${items.Order_time}"></label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card-footer bg-warning" th:if="${items.Status==0}">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-5">
+                    <div class="alert alert-primary mt-3" role="alert" th:if="${param.success}">
+                        Update Successful..
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-header">Profile</div>
+                        <div class="card-body">
+                            <form method="post" th:object="${users_obj}" th:action="@{update_profile}">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" readonly>Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" th:field="*{name}" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-4">
+                                    <label class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" placeholder="Password" th:field="*{email}">
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-4">
+                                    <label class="col-sm-2 col-form-label">Contact Number</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" maxlength="10" class="form-control" th:field="*{mobile}">
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-4">
+                                    <label class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-10" >
+                                        <input type="submit" class="btn btn-primary w-25" value="Update" style="float:right;">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

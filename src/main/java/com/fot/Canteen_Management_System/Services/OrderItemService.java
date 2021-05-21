@@ -21,22 +21,11 @@ public class OrderItemService {
     @Autowired
     private UserRepository userRepository;
 
-    public void save(OrderItem orderItem){
-        orderItemRepository.save(orderItem);
-    }
-
-//    public List<OrderItem> getNewOrder(){
-//        return (List<OrderItem>) orderItemRepository.getNewOrder();
-//    }
 
     public Integer newOrderCount(){
         Collection<OrderItem> item=orderItemRepository.newOrderCount();
         return item.size();
     }
-
-//    public  List<OrderItemDto> getdata(){
-//        return orderItemRepository.getorder();
-//    }
 
 
 }

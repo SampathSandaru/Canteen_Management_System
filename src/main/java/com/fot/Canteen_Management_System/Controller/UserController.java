@@ -139,19 +139,28 @@ public class UserController {
         return "User/user_dash";
     }
 
-    @RequestMapping(path = "/orderitem",method = RequestMethod.POST)
-    public String orderitem(@ModelAttribute("OrderItem")OrderItem orderItem, HttpSession session){
-        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
-        orderItem.setU_id(Integer.parseInt(users.get(0)));
-        LocalDate date = LocalDate.now();
 
-        float tot=orderItem.getQuantity()*orderItem.getPrice();
-        orderItem.setPrice(tot);
-        orderItem.setOrder_time(date);
-        itemService.reduce(orderItem.getQuantity(),orderItem.getItem_id());
+    @GetMapping("/profile")
+    public String profile(HttpSession session,Model model){
+        List<String> user= (List<String>) session.getAttribute("USER_SESSION");
 
-        orderItemService.save(orderItem);
+        Integer userId=Integer.parseInt(user.get(0));
+        User user1=userService.getUserId(userId);
+        model.addAttribute("users",user);
+        model.addAttribute("users_obj",user1);
 
-        return "redirect:/item?ordersuccess";
+        return "User/user_profile";
+    }
+
+    @RequestMapping(path = "/update_profile",method = RequestMethod.POST)
+    public String update_profile(@ModelAttribute("User")User user,HttpSession session){
+        List<String> user1= (List<String>) session.getAttribute("USER_SESSION");
+
+        Integer userId=Integer.parseInt(user1.get(0));
+        if(userService.updateProfile(userId,user)){
+            return "redirect:/profile?success";
+        }else{
+            return "redirect:/profile?error";
+        }
     }
 }

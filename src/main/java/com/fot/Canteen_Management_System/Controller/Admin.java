@@ -50,13 +50,11 @@ public class Admin {
     @RequestMapping(path = "newOrder",method = RequestMethod.GET)
     public String newOrder(Model model, HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
-//        List<OrderItem> orderItems=orderItemService.getNewOrder();
 
         List<OrderItemDto> user_Order_item= orderItemRepository.getorder(); //join query
 
         model.addAttribute("user_Order_item",user_Order_item);
         model.addAttribute("users",users);
-//        model.addAttribute("neworder",orderItems);
 
         if(users==null){
             return "redirect:/loginpage";
@@ -86,18 +84,8 @@ public class Admin {
         }
     }
 
-
-    int i;
-
-    @GetMapping(path = "/test1")
-    public String detail(){
-        List<OrderItemDto> list= orderItemRepository.getorder();
-
-
-        for(i=0;i<list.size();i++){
-            System.out.println(list.get(i));
-        }
-
-        return "test";
-    }
+//    @GetMapping(path = "/test")
+//    public String testpage(){
+//        return "test";
+//    }
 }

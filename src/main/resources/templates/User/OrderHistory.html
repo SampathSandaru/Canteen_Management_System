@@ -84,12 +84,8 @@
                                                 th:text="${items.quantity}"></label></li>
                                         <li class="list-group-item">Price : <label th:text="${items.price}"></label>
                                         </li>
-<!--                                        <li class="list-group-item">Date : <label ></label>-->
-<!--                                        </li>-->
-                                        <li class="list-group-item"><label th:if="${items.isDelete==0}">Available</label>
-                                        </li>
-                                        <li class="list-group-item text-danger"> <label th:if="${items.isDelete==1}">Not Available</label>
-                                        </li>
+                                        <li class="list-group-item" th:if="${items.isDelete==0}">Available</li>
+                                        <li class="list-group-item text-danger" th:if="${items.isDelete==1}">Not Available</li>
                                         <li class="list-group-item text-success" th:if="${items.Status==1}"> <label>success</label>
                                         </li>
                                     </ul>

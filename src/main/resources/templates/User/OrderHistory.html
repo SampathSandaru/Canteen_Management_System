@@ -21,11 +21,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" th:href="@{assets/css/cs-skin-elastic.css}">
     <link rel="stylesheet" th:href="@{assets/css/style.css}">
-<!--    <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">-->
-<!--    <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">-->
+    <!--    <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">-->
+    <!--    <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">-->
 
-<!--    <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet"/>-->
-<!--    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet"/>-->
+    <!--    <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet"/>-->
+    <!--    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet"/>-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <style>
         body {
@@ -37,7 +37,7 @@
         }
 
         .card:hover {
-            transform: scale(1.03);
+            transform: scale(1.01);
             transition: 0.6s;
         }
 
@@ -62,40 +62,81 @@
                 </div>
             </div>
         </div>
-
     </div>
+
     <div class="content">
         <div class="animated fadeIn">
-            <div class="row row-cols-1 row-cols-md-5 g-4">
-                <div class="col" th:each="items:${user_Order_item}">
-                    <div class="card rounded">
-                        <img class="card-img-top card_img"
-                             th:src="@{/Admin/img/item/item_{name}(name= ${items.img_path})}">
-                        <div class="card-body ">
-                            <div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Name : <label th:text="${items.Item_name}"></label>
-                                    </li>
-                                    <li class="list-group-item">Quantity : <label
-                                            th:text="${items.quantity}"></label></li>
-                                    <li class="list-group-item">Price : <label th:text="${items.price}"></label>
-                                    </li>
-                                    <li class="list-group-item">Date : <label th:text="${items.Order_time}"></label>
-                                    </li>
-                                </ul>
+            <div class="row">
+                <div class="col-md-8" th:each="items:${user_Order_item}">
+                    <div class="card">
+                        <div class="card-header">
+                            <label th:text="${items.Item_name}"></label>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img class="card-img-top card_img"
+                                         th:src="@{/Admin/img/item/item_{name}(name= ${items.img_path})}" style="width: 250px;height: 150px">
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Quantity : <label
+                                                th:text="${items.quantity}"></label></li>
+                                        <li class="list-group-item">Price : <label th:text="${items.price}"></label>
+                                        </li>
+<!--                                        <li class="list-group-item">Date : <label ></label>-->
+<!--                                        </li>-->
+                                        <li class="list-group-item"><label th:if="${items.isDelete==0}">Available</label>
+                                        </li>
+                                        <li class="list-group-item text-danger"> <label th:if="${items.isDelete==1}">Not Available</label>
+                                        </li>
+                                        <li class="list-group-item text-success" th:if="${items.Status==1}"> <label>success</label>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-footer bg-success" th:if="${items.Status==0}">
-                            <samp class="alert text-white" th:if="${items.isDelete==1}">Item Not Available</samp>
-                            <samp class="alert text-white" th:if="${items.isDelete==0}">Available</samp>
+                        <div class="card-footer text-muted">
+                            <label th:text="${items.Order_time}"></label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+
+<!--    <div class="content">-->
+<!--        <div class="animated fadeIn">-->
+<!--            <div class="row row-cols-1 row-cols-md-5 g-4">-->
+<!--                <div class="col" th:each="items:${user_Order_item}">-->
+<!--                    <div class="card rounded">-->
+<!--                        <img class="card-img-top card_img"-->
+<!--                             th:src="@{/Admin/img/item/item_{name}(name= ${items.img_path})}" >-->
+<!--                        <div class="card-body ">-->
+<!--                            <div>-->
+<!--                                <ul class="list-group list-group-flush">-->
+<!--                                    <li class="list-group-item">Name : <label th:text="${items.Item_name}"></label>-->
+<!--                                    </li>-->
+<!--                                    <li class="list-group-item">Quantity : <label-->
+<!--                                            th:text="${items.quantity}"></label></li>-->
+<!--                                    <li class="list-group-item">Price : <label th:text="${items.price}"></label>-->
+<!--                                    </li>-->
+<!--                                    <li class="list-group-item">Date : <label th:text="${items.Order_time}"></label>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="card-footer bg-success" th:if="${items.Status==0}">-->
+<!--                            <samp class="alert text-white" th:if="${items.isDelete==1}">Item Not Available</samp>-->
+<!--                            <samp class="alert text-white" th:if="${items.isDelete==0}">Available</samp>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
 
 
 <!--End Content-->

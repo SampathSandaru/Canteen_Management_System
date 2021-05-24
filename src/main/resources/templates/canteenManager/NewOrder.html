@@ -64,6 +64,9 @@
         </div>
       </div>
     </div>
+    <div class="alert alert-primary mt-3" role="alert" th:if="${param.success}">
+      Order successful.
+    </div>
   </div>
   <div class="content">
     <div class="animated fadeIn">
@@ -94,9 +97,13 @@
               <td th:text="${items.mobile}"></td>
               <td th:text="${items.Order_time}"></td>
               <td th:text="${items.Item_name}"></td>
-              <td > <img class="card-img-top card_img"
-                                                    th:src="@{/Admin/img/item/item_{name}(name= ${items.img_path})}" style="width: 150px;height: 120px;border-radius: 20px;"></td>
-              <td><input type="button" class="btn btn-primary" value="Order"></td>
+              <td> <img class="card-img-top card_img"
+                                                    th:src="@{/Admin/img/item/item_{name}(name= ${items.img_path})}" style="width: 150px;height: 120px;border-radius: 15px;"></td>
+              <td>
+                <input type="button" class="btn btn-primary" value="Order" th:if="${items.isDelete==0}" data-bs-toggle="modal"
+                       data-bs-target="#staticBackdrop" th:onclick="order([[${items.user_id}]],[[${items.item_id}]],[[${items.orderID}]],[[${items.name}]],[[${items.Item_name}]],[[${items.price}]],[[${items.img_path}]],[[${items.quantity}]])">
+                <span th:if="${items.isDelete==1}">Not Available</span>
+              </td>
             </tr>
           </table>
           </div>
@@ -107,6 +114,66 @@
 </div>
 </div>
 <!--End Content-->
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="itemName"></h5>
+        <button type="button" class="btn-close" style="float:right" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="">
+          <center>
+            <img class="card-img-top card_img" id="img_path"
+                 src="" style="width: 150px;height: 120px;border-radius: 15px;">
+          </center>
+        </div>
+        <form  method="post" th:action="@{/invoice}" th:object="${invoices}">
+<!--          <input type="hidden" id="order_id" name="order_id">-->
+          <input type="hidden" id="user_id" th:field="*{user_id}">
+          <input type="hidden" id="orderID" th:field="*{orderID}">
+          <div class="mb-3">
+            <label class="col-form-label">Name:</label>
+            <input type="text" class="form-control" id="userName" readonly >
+          </div>
+          <div class="mb-3">
+            <label class="col-form-label">Item Name:</label>
+            <input type="text" class="form-control" id="item_name" readonly >
+          </div>
+          <div class="mb-3">
+            <label class="col-form-label">Price: Rs</label>
+            <input type="text" class="form-control" id="itemprice" readonly>
+          </div>
+          <div class="mb-3">
+            <label class="col-form-label">Quantity</label>
+            <input type="text" class="form-control" id="quantity" readonly>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-primary" value="Success" id="orderbtn">
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Button trigger modal -->
+<script>
+  function order(user_id,item_id,orderID,name,item_name,itemprice,img_path,quantity){
+    document.getElementById("userName").value=name;
+    document.getElementById("item_name").value=item_name;
+    document.getElementById("itemprice").value=itemprice;
+    document.getElementById("quantity").value=quantity;
+    document.getElementById("user_id").value=user_id;
+    // document.getElementById("item_id").value=item_id;
+    document.getElementById("img_path").src="/Admin/img/item/item_"+img_path;
+    document.getElementById("orderID").value=orderID;
+  }
+</script>
+
 <script>
   $(document).ready(function(){
     // Search all columns
@@ -144,6 +211,10 @@
 <script th:src="@{assets/js/main.js}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
 
 
 <!--<script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>-->

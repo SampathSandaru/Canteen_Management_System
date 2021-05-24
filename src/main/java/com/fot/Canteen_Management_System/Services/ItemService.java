@@ -12,7 +12,7 @@ import java.util.List;
 public class ItemService {
 
     @Autowired
-    private ItemRepository itemRepository;
+    private ItemRepository  itemRepository;
 
     public void save(Item item){
         itemRepository.save(item);
@@ -28,7 +28,11 @@ public class ItemService {
     }
 
     public void delete(Integer id){
-        itemRepository.deleteById(id);
+        Item item=itemRepository.findById(id).get();
+        if(itemRepository.findById(id).isPresent()){
+            item.setIsDelete(1);
+            itemRepository.save(item);
+        }
     }
 
     public void update(Integer id,Item item){

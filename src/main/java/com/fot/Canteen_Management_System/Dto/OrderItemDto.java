@@ -20,6 +20,10 @@ public class OrderItemDto {
     private String Item_name;
     private LocalDate Order_time;
     private Integer Status;
+    private Integer isDelete;
+    private Integer user_id;
+    private Integer item_id;
+    private Integer orderID;
 
 
 }

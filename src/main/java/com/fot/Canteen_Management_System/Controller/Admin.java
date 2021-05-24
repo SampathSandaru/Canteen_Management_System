@@ -1,20 +1,21 @@
 package com.fot.Canteen_Management_System.Controller;
 
 import com.fot.Canteen_Management_System.Dto.OrderItemDto;
+import com.fot.Canteen_Management_System.Entity.Invoices;
 import com.fot.Canteen_Management_System.Entity.Item;
 import com.fot.Canteen_Management_System.Entity.OrderItem;
 import com.fot.Canteen_Management_System.Repository.OrderItemRepository;
+import com.fot.Canteen_Management_System.Services.InvoicesService;
 import com.fot.Canteen_Management_System.Services.ItemService;
 import com.fot.Canteen_Management_System.Services.OrderItemService;
 import com.fot.Canteen_Management_System.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -28,6 +29,8 @@ public class Admin {
     private OrderItemService orderItemService;
     @Autowired
     private OrderItemRepository orderItemRepository;
+    @Autowired
+    private InvoicesService invoicesService;
 
     @RequestMapping(path = "/dash",method = RequestMethod.GET)
     public String home(Model model, HttpSession session){
@@ -52,8 +55,10 @@ public class Admin {
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
 
         List<OrderItemDto> user_Order_item= orderItemRepository.getorder(); //join query
+        Invoices invoices=new Invoices();
 
         model.addAttribute("user_Order_item",user_Order_item);
+        model.addAttribute("invoices",invoices);
         model.addAttribute("users",users);
 
         if(users==null){
@@ -82,6 +87,14 @@ public class Admin {
         }else{
             return "redirect:/?access denied";
         }
+    }
+
+    @RequestMapping(path = "/invoice",method = RequestMethod.POST)
+    public String invoice(@ModelAttribute("invoices")Invoices invoices){
+        LocalDate date = LocalDate.now();
+        invoices.setI_date(date);
+        invoicesService.save(invoices);
+        return "redirect:/newOrder?success";
     }
 
 //    @GetMapping(path = "/test")

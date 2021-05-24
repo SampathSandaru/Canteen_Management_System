@@ -15,6 +15,7 @@ public class Item {
     private String img_path;
     private float price;
     private Integer cat_id;
+    private Integer isDelete=0;
 
     public Integer getItem_id() {
         return item_id;
@@ -30,6 +31,14 @@ public class Item {
 
     public void setItem_name(String item_name) {
         Item_name = item_name;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getQuantity() {

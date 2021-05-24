@@ -85,7 +85,9 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="card-footer bg-warning" th:if="${items.Status==0}">
+                        <div class="card-footer bg-success" th:if="${items.Status==0}">
+                            <samp class="alert text-white" th:if="${items.isDelete==1}">Item Not Available</samp>
+                            <samp class="alert text-white" th:if="${items.isDelete==0}">Available</samp>
                         </div>
                     </div>
                 </div>

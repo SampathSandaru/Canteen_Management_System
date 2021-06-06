@@ -1,9 +1,10 @@
 package com.fot.Canteen_Management_System.Controller;
 
 import com.fot.Canteen_Management_System.Dto.OrderItemDto;
-import com.fot.Canteen_Management_System.Entity.Invoices;
+//import com.fot.Canteen_Management_System.Entity.Invoices;
 import com.fot.Canteen_Management_System.Entity.Item;
 import com.fot.Canteen_Management_System.Entity.OrderItem;
+import com.fot.Canteen_Management_System.Entity.User;
 import com.fot.Canteen_Management_System.Repository.OrderItemRepository;
 import com.fot.Canteen_Management_System.Services.InvoicesService;
 import com.fot.Canteen_Management_System.Services.ItemService;
@@ -55,10 +56,10 @@ public class Admin {
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
 
         List<OrderItemDto> user_Order_item= orderItemRepository.getorder(); //join query
-        Invoices invoices=new Invoices();
+//        Invoices invoices=new Invoices();
 
         model.addAttribute("user_Order_item",user_Order_item);
-        model.addAttribute("invoices",invoices);
+//        model.addAttribute("invoices",invoices);
         model.addAttribute("users",users);
 
         if(users==null){
@@ -90,15 +91,64 @@ public class Admin {
     }
 
     @RequestMapping(path = "/invoice",method = RequestMethod.POST)
-    public String invoice(@ModelAttribute("invoices")Invoices invoices){
-        LocalDate date = LocalDate.now();
-        invoices.setI_date(date);
-        invoicesService.save(invoices);
+    public String invoice(@RequestParam("order_id")Integer orderid){
+        invoicesService.save(orderid);
         return "redirect:/newOrder?success";
     }
 
-//    @GetMapping(path = "/test")
-//    public String testpage(){
-//        return "test";
+//    @RequestMapping(path = "/invoice",method = RequestMethod.POST)
+//    public String invoice(@ModelAttribute("invoices")Invoices invoices){
+//        LocalDate date = LocalDate.now();
+//        invoices.setI_date(date);
+//        invoicesService.save(invoices);
+//        return "redirect:/newOrder?success";
 //    }
+
+    @GetMapping(path = "/admin")
+    public String admin_dash(HttpSession session){
+        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+
+        if(users==null){
+            return "redirect:/loginpage";
+        }else{
+            return "Admin/dash";
+        }
+    }
+
+    @GetMapping(path = "/new_user")
+    public String new_user(HttpSession session,Model model){
+        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+
+        List<User> nesusers=userService.newuser();
+
+        model.addAttribute("nesusers",nesusers);
+
+        if(users==null){
+            return "redirect:/loginpage";
+        }else{
+            return "Admin/new_user";
+        }
+    }
+
+    @GetMapping(path = "/users")
+    public String users(HttpSession session){
+        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+
+        if(users==null){
+            return "redirect:/loginpage";
+        }else{
+            return "Admin/users";
+        }
+    }
+
+    @RequestMapping(path = "/approveuser",method = RequestMethod.POST)
+    public String approveuser(HttpSession session,@RequestParam("userid")Integer userid){
+        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+        userService.approveuser(userid);
+        if(users==null){
+            return "redirect:/loginpage";
+        }else{
+            return "Admin/new_user";
+        }
+    }
 }

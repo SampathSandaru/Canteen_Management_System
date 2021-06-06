@@ -1,5 +1,6 @@
 package com.fot.Canteen_Management_System.Services;
 
+import com.fot.Canteen_Management_System.Dto.UserPwd;
 import com.fot.Canteen_Management_System.Entity.User;
 import com.fot.Canteen_Management_System.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,34 @@ public class UserService {
             return true;
         }else {
             return false;
+        }
+    }
+
+    public Boolean chang_password(String current_pwd,Integer id,String new_pwd){
+        if(userRepository.findById(id).isPresent()){
+            User user=userRepository.findById(id).get();
+            if(user.getPassword().equals(current_pwd)){
+                System.out.println(user.getPassword());
+                user.setPassword(new_pwd);
+                userRepository.save(user);
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    public List<User> newuser(){
+        return userRepository.allnewuser();
+    }
+
+    public void approveuser(Integer userid){
+        if(userRepository.findById(userid).isPresent()){
+           User user=userRepository.findById(userid).get();
+           user.setApprove(1);
+           userRepository.save(user);
         }
     }
 }

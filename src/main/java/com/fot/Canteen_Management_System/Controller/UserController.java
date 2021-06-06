@@ -1,9 +1,11 @@
 package com.fot.Canteen_Management_System.Controller;
 
 import com.fot.Canteen_Management_System.Dto.OrderItemDto;
+import com.fot.Canteen_Management_System.Dto.UserPwd;
 import com.fot.Canteen_Management_System.Entity.OrderItem;
 import com.fot.Canteen_Management_System.Entity.User;
 import com.fot.Canteen_Management_System.Repository.OrderItemRepository;
+import com.fot.Canteen_Management_System.Repository.UserRepository;
 import com.fot.Canteen_Management_System.Services.ItemService;
 import com.fot.Canteen_Management_System.Services.OrderItemService;
 import com.fot.Canteen_Management_System.Services.UserService;
@@ -18,6 +20,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -30,6 +33,8 @@ public class UserController {
     private OrderItemService orderItemService;
     @Autowired
     private OrderItemRepository orderItemRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/")
     public String index(){
@@ -76,12 +81,12 @@ public class UserController {
 
             request.getSession().setAttribute("USER_SESSION",users);
 
-            if(newuser.getRole().equals("canteenmanager")){
+            if(newuser.getRole().equals("canteenmanager") && newuser.getApprove()==1){
                 return "redirect:/dash";
-            }else if(newuser.getRole().equals("user")){
+            }else if(newuser.getRole().equals("user") && newuser.getApprove()==1){
                 return "redirect:/userdash";
             }else{
-                return "redirect:/";
+                return "redirect:/loginpage?notapproved";
             }
 
         }else{
@@ -146,6 +151,9 @@ public class UserController {
 
         Integer userId=Integer.parseInt(user.get(0));
         User user1=userService.getUserId(userId);
+
+        List<UserPwd> user2=userRepository.pwdchnagedate(userId);
+        model.addAttribute("pwdchagedate",user2);
         model.addAttribute("users",user);
         model.addAttribute("users_obj",user1);
 
@@ -164,6 +172,22 @@ public class UserController {
         }
     }
 
+    @RequestMapping(path = "/chang_pwd",method = RequestMethod.POST)
+    public String chang_pwd(HttpSession session,@RequestParam("current_pwd")String current_pwd,@RequestParam("new_pwd")String new_pwd,@RequestParam("confim_pwd")String confirm_pwd){
+        List<String> user1= (List<String>) session.getAttribute("USER_SESSION");
+
+        Integer id=Integer.parseInt(user1.get(0));
+       if(new_pwd.equals(confirm_pwd)){
+           if(userService.chang_password(current_pwd,id,new_pwd)){
+               return "redirect:/profile?chngpwdsuccess";
+           }else{
+               return "redirect:/profile?incorect_current_pwd";
+           }
+       }else{
+           return "redirect:/profile?dosentmachpwd";
+       }
+    }
+
     @RequestMapping(path = "/orderitem",method = RequestMethod.POST)
     public String orderitem(@ModelAttribute("OrderItem")OrderItem orderItem, HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
@@ -176,7 +200,6 @@ public class UserController {
         itemService.reduce(orderItem.getQuantity(),orderItem.getItem_id());
 
         orderItemService.save(orderItem);
-
         return "redirect:/item?ordersuccess";
     }
 }

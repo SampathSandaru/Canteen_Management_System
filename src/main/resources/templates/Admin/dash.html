@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
-<!--                                        <div class="stat-text"><span class="count" th:text="${itemcount}"></span></div>-->
+                                        <div class="stat-text"><span class="count" th:text="${itemcount}"></span></div>
                                         <div class="stat-heading">Food</div>
                                     </div>
                                 </div>
@@ -132,10 +132,31 @@
                                 </div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
-<!--                                        <div class="stat-text"><span class="count" th:text="${usercount}"></span></div>-->
+                                        <div class="stat-text"><span class="count" th:text="${usercount}"></span></div>
                                         <div class="stat-heading">User</div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                <div class="col" th:each="items:${items}">
+                    <div class="card">
+                        <img class="card-img-top card_img"
+                             th:src="@{/Admin/img/item/item_{name}(name= ${items.getImg_path()})}">
+                        <div class="card-body ">
+                            <div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Name : <label th:text="${items.getItem_name()}"></label>
+                                    </li>
+                                    <li class="list-group-item">Quantity : <label
+                                            th:text="${items.getQuantity()}"></label></li>
+                                    <li class="list-group-item">Price : <label th:text="${items.getPrice()}"></label>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

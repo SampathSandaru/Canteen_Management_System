@@ -6,10 +6,7 @@ import com.fot.Canteen_Management_System.Entity.Item;
 import com.fot.Canteen_Management_System.Entity.OrderItem;
 import com.fot.Canteen_Management_System.Entity.User;
 import com.fot.Canteen_Management_System.Repository.OrderItemRepository;
-import com.fot.Canteen_Management_System.Services.InvoicesService;
-import com.fot.Canteen_Management_System.Services.ItemService;
-import com.fot.Canteen_Management_System.Services.OrderItemService;
-import com.fot.Canteen_Management_System.Services.UserService;
+import com.fot.Canteen_Management_System.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 public class Admin {
@@ -32,19 +30,21 @@ public class Admin {
     private OrderItemRepository orderItemRepository;
     @Autowired
     private InvoicesService invoicesService;
+    @Autowired
+    private SendEmailService sendEmailService;
 
     @RequestMapping(path = "/dash",method = RequestMethod.GET)
     public String home(Model model, HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
 
-        model.addAttribute("itemcount",itemService.allItemCount());
-        model.addAttribute("newOrderCount",orderItemService.newOrderCount());
-        model.addAttribute("usercount",userService.getusercount());
-        model.addAttribute("users",users);
-
         if(users==null){
             return "redirect:/loginpage";
         }else if(users.get(3).equals("canteenmanager")){
+            model.addAttribute("itemcount",itemService.allItemCount());
+            model.addAttribute("newOrderCount",orderItemService.newOrderCount());
+            model.addAttribute("usercount",userService.getusercount());
+            model.addAttribute("users",users);
+            model.addAttribute("summary",invoicesService.getsummary());
             return "canteenManager/dash";
         }else{
             return "redirect:/?access denied";
@@ -105,12 +105,14 @@ public class Admin {
 //    }
 
     @GetMapping(path = "/admin")
-    public String admin_dash(HttpSession session){
+    public String admin_dash(HttpSession session,Model model){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
-
         if(users==null){
             return "redirect:/loginpage";
         }else{
+            model.addAttribute("items",itemService.getAllItem());
+            model.addAttribute("usercount",userService.getusercount());
+            model.addAttribute("itemcount",itemService.allItemCount());
             return "Admin/dash";
         }
     }
@@ -119,26 +121,51 @@ public class Admin {
     public String new_user(HttpSession session,Model model){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
 
-        List<User> nesusers=userService.newuser();
-
-        model.addAttribute("nesusers",nesusers);
-
         if(users==null){
             return "redirect:/loginpage";
         }else{
+            model.addAttribute("nesusers",userService.newuser());
             return "Admin/new_user";
         }
     }
 
     @GetMapping(path = "/users")
-    public String users(HttpSession session){
+    public String users(HttpSession session,Model model){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
 
         if(users==null){
             return "redirect:/loginpage";
         }else{
+            model.addAttribute("allnuser",userService.allnuser());
             return "Admin/users";
         }
+    }
+
+    @GetMapping(path = "/add_canteen_manager")
+    public String add_canteen_manager(HttpSession session,Model model){
+        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+
+        if(users==null){
+            return "redirect:/loginpage";
+        }else{
+            User user=new User();
+            model.addAttribute("user",user);
+            return "Admin/add_canteen_manager";
+        }
+    }
+
+    @RequestMapping(path = "/reg_CA",method = RequestMethod.POST)
+    public String reg_new_user(@ModelAttribute("User") User user){
+        int max=9999;
+        int min=1000;
+        int pwd = (int) ((Math.random()*(max-min))+min);
+        String password=String.valueOf(pwd);
+
+        sendEmailService.sendEmial(user.getEmail(),"Your Password : "+password,"Password");
+        user.setPassword(password);
+        user.setRole("canteenmanager");
+        userService.save(user);
+        return "redirect:/loginpage";
     }
 
     @RequestMapping(path = "/approveuser",method = RequestMethod.POST)
@@ -148,7 +175,7 @@ public class Admin {
         if(users==null){
             return "redirect:/loginpage";
         }else{
-            return "Admin/new_user";
+            return "redirect:/new_user";
         }
     }
 }

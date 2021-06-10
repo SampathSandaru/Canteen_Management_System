@@ -63,11 +63,10 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="">
-                        <a th:href="@{/dash}"><i class="menu-icon fas fa-tachometer-alt"></i>Dashboard</a>
+                        <a th:href="@{/admin}"><i class="menu-icon fas fa-tachometer-alt"></i>Dashboard</a>
                     </li>
-
                     <li class="">
-                        <a th:href="@{/canteenmanager_item}"><i class="menu-icon fas fa-utensils"></i>Item</a>
+                        <a th:href="@{/add_canteen_manager}"><i class="menu-icon fas fa-utensils"></i>Add Canteen Manager</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -75,14 +74,7 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fas fa-user-friends"></i><a th:href="@{/new_user}">New User</a></li>
                             <li><i class="fas fa-user-friends"></i><a th:href="@{/users}">User</a></li>
-                            <!--   <li><i class="far fa-bookmark"></i><a th:href=""></a></li>-->
                         </ul>
-                    </li>
-                    <li>
-                        <a th:href="@{/newOrder}"><i class="menu-icon fab fa-first-order"></i>New Order </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/}"><i class="menu-icon fas fa-history"></i>Order History</a>
                     </li>
 
                 </ul>

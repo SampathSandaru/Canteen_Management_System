@@ -64,6 +64,10 @@ public class UserService {
         return userRepository.allnewuser();
     }
 
+    public List<User> allnuser(){
+        return userRepository.allnuser();
+    }
+
     public void approveuser(Integer userid){
         if(userRepository.findById(userid).isPresent()){
            User user=userRepository.findById(userid).get();

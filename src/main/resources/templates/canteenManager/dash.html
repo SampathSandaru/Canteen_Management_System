@@ -37,7 +37,7 @@
             box-shadow: 6px 4px 6px 0 rgba(0, 0, 0, 0.3), 0 3px 25px 0 rgba(0, 0, 0, 0.2);
         }
 
-        .card:hover {
+        .costom .card:hover {
             transform: scale(1.02);
             transition: 0.6s;
         }
@@ -68,7 +68,7 @@
         <!-- Animated -->
         <div class="animated fadeIn">
 
-            <div class="row">
+            <div class="row costom">
                 <div class="col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body">
@@ -138,6 +138,25 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <table class="table table-hover p-2">
+                            <tr>
+                                <th>NO</th>
+                                <th>Date</th>
+                                <th>Amount (Rs)</th>
+                            </tr>
+                            <tr th:each="summary,i:${summary}">
+                                <td th:text="${i.count}"></td>
+                                <td th:text="${summary.date}"></td>
+                                <td th:text="${summary.amount}"></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -52,7 +52,7 @@
                 <div class="col-sm-4">
                     <div class="page-header float-left">
                         <div class="page-title ui-widget-shadow">
-                            <h1><i class="fas fa-user-friends"></i> Users</h1>
+                            <h1><i class="fas fa-user-friends"></i> Add New Canteen Manager</h1>
                         </div>
                     </div>
                 </div>
@@ -62,29 +62,38 @@
     <div class="content">
         <!-- Animated -->
         <div class="animated fadeIn">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card shadow">
-                        <div class=" mb-4 mt-2">
-                            <input type="search" id="txt_searchall" class="form-control"
-                                   placeholder="Enter Name or Mobile Number" style="float:right;width: 40%">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            Add New Canteen Manager
                         </div>
-                        <table class="table table-hover">
-                            <tr>
-                                <th>NO</th>
-                                <th>Name</th>
-                                <th>Mobile</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                            </tr>
-                            <tr th:each="user,i:${allnuser}">
-                                <td th:text="${i.count}"></td>
-                                <td th:text="${user.name}"></td>
-                                <td th:text="${user.Mobile}"></td>
-                                <td th:text="${user.email}"></td>
-                                <td th:text="${user.role}"> </td>
-                            </tr>
-                        </table>
+                        <div class="card-body">
+                            <form action="" method="post" th:action="@{/reg_CA}" th:object="${user}">
+                                <div class="mb-3">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control" th:field="*{name}" placeholder="Name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Mobile Number</label>
+                                    <input type="text" class="form-control" placeholder="Mobile Number" th:field="*{mobile}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" placeholder="Email" th:field="*{email}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Role</label>
+                                    <input type="text" class="form-control" value="Canteen Manager" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <hr>
+                                    <label class="form-label"></label>
+                                    <input type="submit" class="btn btn-primary mt-3" value="Submit">
+                                    <input type="reset" class="btn btn-danger mt-3" value="Reset">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

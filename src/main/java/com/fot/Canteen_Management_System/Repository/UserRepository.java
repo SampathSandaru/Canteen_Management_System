@@ -21,4 +21,7 @@ public interface UserRepository extends CrudRepository<User,Integer> {
 
     @Query(value ="SELECT u FROM User u WHERE u.approve=0")
     public List<User> allnewuser();
+
+    @Query(value ="SELECT u FROM User u WHERE u.approve=1")
+    public List<User> allnuser();
 }

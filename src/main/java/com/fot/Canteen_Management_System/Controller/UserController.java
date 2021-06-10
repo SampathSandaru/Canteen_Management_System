@@ -68,23 +68,24 @@ public class UserController {
         List<String> users= (List<String>) request.getSession().getAttribute("USER_SESSION");
 
         System.out.println("user : "+newuser);
-        if(Objects.nonNull(newuser)){
-            if (users == null)
-            {
+        if(Objects.nonNull(newuser)) {
+            if (users == null) {
                 users = new ArrayList<>();
-                request.getSession().setAttribute("USER_SESSION",users);
+                request.getSession().setAttribute("USER_SESSION", users);
             }
             users.add(newuser.getId().toString());
             users.add(newuser.getName());
             users.add(newuser.getEmail());
             users.add(newuser.getRole());
 
-            request.getSession().setAttribute("USER_SESSION",users);
+            request.getSession().setAttribute("USER_SESSION", users);
 
-            if(newuser.getRole().equals("canteenmanager") && newuser.getApprove()==1){
+            if (newuser.getRole().equals("canteenmanager") && newuser.getApprove() == 1) {
                 return "redirect:/dash";
-            }else if(newuser.getRole().equals("user") && newuser.getApprove()==1){
+            } else if (newuser.getRole().equals("user") && newuser.getApprove() == 1) {
                 return "redirect:/userdash";
+            }else if(newuser.getRole().equals("admin") && newuser.getApprove()==1){
+                return "redirect:/admin";
             }else{
                 return "redirect:/loginpage?notapproved";
             }
@@ -140,8 +141,12 @@ public class UserController {
     public String userdash(Model model,HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
 
-        model.addAttribute("users",users);
-        return "User/user_dash";
+        if(users==null){
+            return "redirect:/loginpage";
+        }else{
+            model.addAttribute("users",users);
+            return "User/user_dash";
+        }
     }
 
 
@@ -149,15 +154,18 @@ public class UserController {
     public String profile(HttpSession session,Model model){
         List<String> user= (List<String>) session.getAttribute("USER_SESSION");
 
-        Integer userId=Integer.parseInt(user.get(0));
-        User user1=userService.getUserId(userId);
+        if(user==null){
+            return "redirect:/loginpage";
+        }else {
+            Integer userId=Integer.parseInt(user.get(0));
+            User user1=userService.getUserId(userId);
 
-        List<UserPwd> user2=userRepository.pwdchnagedate(userId);
-        model.addAttribute("pwdchagedate",user2);
-        model.addAttribute("users",user);
-        model.addAttribute("users_obj",user1);
-
-        return "User/user_profile";
+            List<UserPwd> user2=userRepository.pwdchnagedate(userId);
+            model.addAttribute("pwdchagedate",user2);
+            model.addAttribute("users",user);
+            model.addAttribute("users_obj",user1);
+            return "User/user_profile";
+        }
     }
 
     @RequestMapping(path = "/update_profile",method = RequestMethod.POST)

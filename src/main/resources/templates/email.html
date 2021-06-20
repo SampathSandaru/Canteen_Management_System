@@ -40,21 +40,18 @@
           <div class="row">
             <div class="col-md-6">
               <div class="lg-card-header">
-                Login
+                Enter Your Email
               </div>
               <div class="card-body">
-                <form method="post" th:action="@{/login}" th:object="${user}">
-                  <div class="alert alert-danger" role="alert" th:if="${param.incorrectDetail}">
-                    Email or Password incorrect.
+                <form method="post" th:action="@{/forget_pwd_email}" >
+                  <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                    Incorrect Email
                   </div>
                   <div class="alert alert-danger" role="alert" th:if="${param.notapproved}">
                     Your Account Not Approved Yet.
                   </div>
-                  <input type="email" class="form-control" th:field="*{email}" placeholder="Email">
-                  <input type="password" class="form-control mt-4" th:field="*{password}" placeholder="Password">
-                  <input type="submit" class="btn btn-primary mt-3 w-25" value="Sign in">
-                  <samp><a class="nav-link" th:href="@{/email}">Forget Password ?</a> </samp>
-                  <samp><a class="nav-link" th:href="@{/register}">Register</a> </samp>
+                  <input type="email" class="form-control" name="email" placeholder="Email">
+                  <input type="submit" class="btn btn-primary mt-3 w-25" value="Send Code">
                 </form>
               </div>
             </div>

@@ -24,4 +24,6 @@ public interface UserRepository extends CrudRepository<User,Integer> {
 
     @Query(value ="SELECT u FROM User u WHERE u.approve=1")
     public List<User> allnuser();
+
+    User findByemail(String email);
 }

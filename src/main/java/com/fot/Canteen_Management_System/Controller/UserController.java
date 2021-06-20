@@ -8,6 +8,7 @@ import com.fot.Canteen_Management_System.Repository.OrderItemRepository;
 import com.fot.Canteen_Management_System.Repository.UserRepository;
 import com.fot.Canteen_Management_System.Services.ItemService;
 import com.fot.Canteen_Management_System.Services.OrderItemService;
+import com.fot.Canteen_Management_System.Services.SendEmailService;
 import com.fot.Canteen_Management_System.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,8 @@ public class UserController {
     private OrderItemRepository orderItemRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private SendEmailService sendEmailService;
 
     @GetMapping("/")
     public String index(){
@@ -209,5 +212,61 @@ public class UserController {
 
         orderItemService.save(orderItem);
         return "redirect:/item?ordersuccess";
+    }
+
+    @GetMapping(path = "/email")
+    public String email(){
+        return "email";
+    }
+
+    @GetMapping(path = "/reset_code")
+    public String reset_code(){
+        return "reset_code";
+    }
+
+    @GetMapping(path = "/reset_pwd")
+    public String reset_pwd(){
+        return "reset_pwd";
+    }
+
+    @RequestMapping(path = "/forget_pwd_email",method = RequestMethod.POST)
+    public String codepage(HttpSession session,@RequestParam("email")String email){
+        User user=userService.forget_pwd(email);
+        if(Objects.nonNull(user)){
+            int max=9999;
+            int min=1000;
+            int code = (int) ((Math.random()*(max-min))+min);
+            String s_cod=String.valueOf(code);
+            session.setAttribute("reset_code",s_cod);
+            session.setAttribute("id",user.getId());
+            sendEmailService.sendEmial(email,"Your Password Reset Code : "+code,"Reset Code");
+            return "redirect:/reset_code?success";
+        }else{
+            return "redirect:/email?error";
+        }
+    }
+
+    @RequestMapping(path = "/pwd_reset_code",method = RequestMethod.POST)
+    public String pwd_reset_code(HttpSession session,@RequestParam("resetcode")String code){
+        if(session.getAttribute("reset_code").equals(code)){
+            System.out.println("OK "+session.getAttribute("reset_code"));
+            return "reset_pwd";
+        }else{
+            System.out.println("erro "+session.getAttribute("reset_code"));
+            return "redirect:/reset_code?error";
+        }
+    }
+
+    @RequestMapping(path = "/reset_pwd",method = RequestMethod.POST)
+    public String reset_pwd(HttpSession session,@RequestParam("confirm_pwd")String confirm_pwd,@RequestParam("pwd")String pwd){
+        Integer id= (Integer) session.getAttribute("id");
+        if(pwd.equals(confirm_pwd)){
+            if(userService.reset_password(pwd,id)){
+                return "redirect:/loginpage";
+            }else{
+                return "redirect:/reset_code";
+            }
+        }else
+            return "redirect:/reset_pwd?error_matchPwd";
     }
 }

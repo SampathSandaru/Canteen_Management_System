@@ -48,7 +48,8 @@ public class UserService {
         if(userRepository.findById(id).isPresent()){
             User user=userRepository.findById(id).get();
             if(user.getPassword().equals(current_pwd)){
-                System.out.println(user.getPassword());
+                System.out.println("current pwd "+user.getPassword());
+                System.out.println("new pwd "+new_pwd);
                 user.setPassword(new_pwd);
                 userRepository.save(user);
                 return true;
@@ -73,6 +74,22 @@ public class UserService {
            User user=userRepository.findById(userid).get();
            user.setApprove(1);
            userRepository.save(user);
+        }
+    }
+
+    public User forget_pwd(String email){
+        User user= userRepository.findByemail(email);
+        return user;
+    }
+
+    public Boolean reset_password(String password,Integer id) {
+        if (userRepository.findById(id).isPresent()){
+            User user=userRepository.findById(id).get();
+            user.setPassword(password);
+            userRepository.save(user);
+            return true;
+        }else {
+            return false;
         }
     }
 }

@@ -48,14 +48,15 @@ public class UserController {
     public String login(Model model){
         User user=new User();
         model.addAttribute("user",user);
-        return "login";
+//        return "login";
+        return "loginNew";
     }
 
     @RequestMapping(path = "/register",method = RequestMethod.GET)
     public String register(Model model){
         User user=new User();
         model.addAttribute("user",user);
-        return "register";
+        return "register1";
     }
 
     @RequestMapping(path = "/reg_user",method = RequestMethod.POST)
@@ -216,17 +217,17 @@ public class UserController {
 
     @GetMapping(path = "/email")
     public String email(){
-        return "email";
+        return "email1";
     }
 
     @GetMapping(path = "/reset_code")
     public String reset_code(){
-        return "reset_code";
+        return "reset_code1";
     }
 
     @GetMapping(path = "/reset_pwd")
     public String reset_pwd(){
-        return "reset_pwd";
+        return "reset_pwd1";
     }
 
     @RequestMapping(path = "/forget_pwd_email",method = RequestMethod.POST)
@@ -250,7 +251,7 @@ public class UserController {
     public String pwd_reset_code(HttpSession session,@RequestParam("resetcode")String code){
         if(session.getAttribute("reset_code").equals(code)){
             System.out.println("OK "+session.getAttribute("reset_code"));
-            return "reset_pwd";
+            return "redirect:/reset_pwd";
         }else{
             System.out.println("erro "+session.getAttribute("reset_code"));
             return "redirect:/reset_code?error";

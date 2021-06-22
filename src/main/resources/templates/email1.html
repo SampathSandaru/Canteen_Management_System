@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Animated Login Form</title>
+    <link rel="stylesheet" th:href="@{assets/css/style_login.css}">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<!--<img class="navbar-brand" th:src="@{/Admin/img/logo/wave.png}">-->
+<img class="wave" th:src="@{/assets/img/wave.png}">
+<div class="container">
+    <div class="img">
+<!--        <img class="navbar-brand" th:src="@{/Admin/img/logo/bg.svg}">-->
+        <img th:src="@{/assets/img/bg.svg}">
+    </div>
+    <div class="login-content">
+        <form method="post"th:action="@{/forget_pwd_email}" >
+            <img th:src="@{/assets/img/avatar.svg}">
+            <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                Incorrect Email
+            </div>
+            <div class="alert alert-danger" role="alert" th:if="${param.notapproved}">
+                Your Account Not Approved Yet.
+            </div>
+            <div class="input-div one">
+                <div class="i">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="div">
+                    <input type="email" class="input" name="email" placeholder="Email">
+                </div>
+            </div>
+            <input type="submit" class="btn" value="Send Code">
+        </form>
+    </div>
+</div>
+<script  th:src="@{assets/js/main_login.js}"></script>
+</body>
+</html>

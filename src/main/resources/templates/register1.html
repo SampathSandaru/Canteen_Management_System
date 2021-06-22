@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Animated Login Form</title>
+    <link rel="stylesheet" th:href="@{assets/css/style_login.css}">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<!--<img class="navbar-brand" th:src="@{/Admin/img/logo/wave.png}">-->
+<img class="wave" th:src="@{/assets/img/wave.png}">
+<div class="container">
+    <div class="img">
+<!--        <img class="navbar-brand" th:src="@{/Admin/img/logo/bg.svg}">-->
+        <img th:src="@{/assets/img/bg.svg}">
+    </div>
+    <div class="login-content">
+        <form method="post" th:action="@{/reg_user}" th:object="${user}">
+            <img th:src="@{/assets/img/avatar.svg}">
+            <h2 class="title">Welcome</h2>
+            <div class="input-div one">
+                <div class="i">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="div">
+                    <input type="text" class="input" th:field="*{name}" placeholder="Name">
+                </div>
+            </div>
+            <div class="input-div pass">
+                <div class="i">
+                    <i class="far fa-envelope"></i>
+                </div>
+                <div class="div">
+                    <input type="email" class="input" th:field="*{email}" placeholder="Email">
+                </div>
+            </div>
+            <div class="input-div pass">
+                <div class="i">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="div">
+                    <input type="password" class="input" th:field="*{password}" placeholder="Password">
+                </div>
+            </div>
+            <div class="input-div pass">
+                <div class="i">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div class="div">
+                    <input type="text" class="input"  th:field="*{mobile}" placeholder="Mobile Number">
+                </div>
+            </div>
+            <input type="submit" class="btn" value="Register">
+        </form>
+    </div>
+</div>
+<script  th:src="@{assets/js/main_login.js}"></script>
+</body>
+</html>

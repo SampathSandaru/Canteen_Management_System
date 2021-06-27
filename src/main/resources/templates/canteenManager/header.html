@@ -80,9 +80,6 @@
                     <li>
                         <a th:href="@{/newOrder}"><i class="menu-icon fab fa-first-order"></i>New Order </a>
                     </li>
-                    <li>
-                        <a th:href="@{/}"><i class="menu-icon fas fa-history"></i>Order History</a>
-                    </li>
 
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -117,7 +114,7 @@
 
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link"><i class="fa fa- user"></i> <samp th:text="${users.get(1)}"></samp></a>
-                            <a class="nav-link"><i class="fa fa- user"></i>My Profile</a>
+<!--                            <a class="nav-link"><i class="fa fa- user"></i>My Profile</a>-->
 
                             <a class="nav-link" th:href="@{logout}"><i class="fa fa-power -off"></i>Logout</a>
                         </div>

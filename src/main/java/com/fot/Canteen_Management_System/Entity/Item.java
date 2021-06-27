@@ -14,7 +14,7 @@ public class Item {
     private Integer quantity;
     private String img_path;
     private float price;
-    private Integer cat_id;
+//    private Integer cat_id;
     private Integer isDelete=0;
 
     public Integer getItem_id() {
@@ -65,11 +65,11 @@ public class Item {
         this.price = price;
     }
 
-    public Integer getCat_id() {
-        return cat_id;
-    }
-
-    public void setCat_id(Integer cat_id) {
-        this.cat_id = cat_id;
-    }
+//    public Integer getCat_id() {
+//        return cat_id;
+//    }
+//
+//    public void setCat_id(Integer cat_id) {
+//        this.cat_id = cat_id;
+//    }
 }

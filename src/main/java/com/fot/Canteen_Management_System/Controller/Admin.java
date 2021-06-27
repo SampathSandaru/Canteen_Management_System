@@ -96,14 +96,6 @@ public class Admin {
         return "redirect:/newOrder?success";
     }
 
-//    @RequestMapping(path = "/invoice",method = RequestMethod.POST)
-//    public String invoice(@ModelAttribute("invoices")Invoices invoices){
-//        LocalDate date = LocalDate.now();
-//        invoices.setI_date(date);
-//        invoicesService.save(invoices);
-//        return "redirect:/newOrder?success";
-//    }
-
     @GetMapping(path = "/admin")
     public String admin_dash(HttpSession session,Model model){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
@@ -113,6 +105,7 @@ public class Admin {
             model.addAttribute("items",itemService.getAllItem());
             model.addAttribute("usercount",userService.getusercount());
             model.addAttribute("itemcount",itemService.allItemCount());
+            model.addAttribute("newOrderCount",orderItemService.newOrderCount());
             return "Admin/dash";
         }
     }

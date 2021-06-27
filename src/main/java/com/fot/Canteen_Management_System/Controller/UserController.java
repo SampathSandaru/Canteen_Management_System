@@ -48,7 +48,6 @@ public class UserController {
     public String login(Model model){
         User user=new User();
         model.addAttribute("user",user);
-//        return "login";
         return "loginNew";
     }
 
@@ -87,7 +86,7 @@ public class UserController {
             if (newuser.getRole().equals("canteenmanager") && newuser.getApprove() == 1) {
                 return "redirect:/dash";
             } else if (newuser.getRole().equals("user") && newuser.getApprove() == 1) {
-                return "redirect:/userdash";
+                return "redirect:/item";
             }else if(newuser.getRole().equals("admin") && newuser.getApprove()==1){
                 return "redirect:/admin";
             }else{

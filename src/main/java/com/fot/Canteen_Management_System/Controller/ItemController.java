@@ -40,12 +40,12 @@ public class ItemController {
 
         itemService.delete(id);
 
-//        File delete_img=new File(resourceDirectory+imgname);
-//        try {
-//            delete_img.delete();
-//        }catch (Exception e){
-//
-//        }
+        File delete_img=new File(resourceDirectory+imgname);
+        try {
+            delete_img.delete();
+        }catch (Exception e){
+
+        }
 
         return "redirect:/canteenmanager_item";
     }

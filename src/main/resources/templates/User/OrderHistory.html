@@ -87,7 +87,8 @@
                                         <li class="list-group-item" th:if="${items.isDelete==0}">Available</li>
                                         <li class="list-group-item text-danger" th:if="${items.isDelete==1}">Not Available</li>
                                         <li class="list-group-item text-success" th:if="${items.Status==1}"> <label>success</label>
-                                        </li>
+                                        <li class="list-group-item text-danger" th:if="${items.Status==0 && items.isDelete==0}"> <label>process</label></li>
+                                        <li class="list-group-item text-danger" th:if="${items.Status==0 && items.isDelete==1}"> <label>order canceled</label></li>
                                     </ul>
                                 </div>
                             </div>

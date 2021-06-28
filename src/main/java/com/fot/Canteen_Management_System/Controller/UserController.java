@@ -40,7 +40,8 @@ public class UserController {
     private SendEmailService sendEmailService;
 
     @GetMapping("/")
-    public String index(){
+    public String index(Model model){
+        model.addAttribute("items",itemService.getuserItem());
         return "index";
     }
 

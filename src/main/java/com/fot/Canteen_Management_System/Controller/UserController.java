@@ -41,7 +41,7 @@ public class UserController {
 
     @GetMapping("/")
     public String index(){
-        return "test";
+        return "index";
     }
 
     @RequestMapping(path = "/loginpage",method = RequestMethod.GET)

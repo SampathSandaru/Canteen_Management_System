@@ -107,6 +107,8 @@ public class Admin {
             model.addAttribute("itemcount",itemService.allItemCount());
             model.addAttribute("newOrderCount",orderItemService.newOrderCount());
             return "Admin/dash";
+        }else{
+            return "redirect:/?access denied";
         }
     }
 

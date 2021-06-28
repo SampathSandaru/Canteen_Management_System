@@ -101,7 +101,7 @@ public class Admin {
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
         if(users==null){
             return "redirect:/loginpage";
-        }else{
+        }else if(users.get(3).equals("admin")){
             model.addAttribute("items",itemService.getAllItem());
             model.addAttribute("usercount",userService.getusercount());
             model.addAttribute("itemcount",itemService.allItemCount());

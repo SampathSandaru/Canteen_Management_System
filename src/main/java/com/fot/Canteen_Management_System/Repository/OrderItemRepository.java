@@ -3,9 +3,11 @@ package com.fot.Canteen_Management_System.Repository;
 import com.fot.Canteen_Management_System.Dto.OrderItemDto;
 import com.fot.Canteen_Management_System.Entity.OrderItem;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,5 +22,17 @@ public interface OrderItemRepository extends CrudRepository<OrderItem,Integer> {
 
     @Query(value = "SELECT o From OrderItem o WHERE o.Status=0")
     Collection<OrderItem> newOrderCount();
+
+//    @Transactional
+//    @Procedure(procedureName = "getOrder")
+//    List<OrderItem> getorders();
+
+//    @Transactional
+//    @Procedure(procedureName = "getOrder2")
+//    List<OrderItem> getorderHistory();
+
+//    @Query(value = "{call  getOrderHistoryDetails(:id)}",nativeQuery = true)
+//    List<OrderItemDto> getorderHistory(Integer id);
+
 
 }

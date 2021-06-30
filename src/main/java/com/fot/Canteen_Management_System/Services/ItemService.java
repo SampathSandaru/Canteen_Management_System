@@ -51,7 +51,7 @@ public class ItemService {
     }
 
     public void reduce(Integer quantity,Integer item_id){
-        itemRepository.reduceItem(quantity,item_id);
+        itemRepository.reduceItem(item_id,quantity);
     }
 
 }

@@ -30,5 +30,12 @@ public class OrderItemService {
         orderItemRepository.save(orderItem);
     }
 
-
+    public boolean deleteOrdere(Integer id){
+        if(orderItemRepository.findById(id).isPresent()){
+            orderItemRepository.deleteById(id);
+            return  true;
+        }else{
+            return false;
+        }
+    }
 }

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Technology SLET</title>
+    <title>FOT</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -66,11 +66,21 @@
 
     <div class="content">
         <div class="animated fadeIn">
+            <div class="alert alert-primary mt-3 col-8" role="alert" th:if="${param.success}">
+                Delete successful.
+            </div>
             <div class="row">
                 <div class="col-md-8" th:each="items:${user_Order_item}">
                     <div class="card">
                         <div class="card-header">
-                            <label th:text="${items.Item_name}"></label>
+                            <label th:text="${items.Item_name}" class="d-inline-block"></label>
+                                <form method="post" th:action="@{/delete_order}">
+                                    <input type="hidden" name="id" th:value="${items.orderID}">
+                                    <samp style="float:right" th:if="${items.Status==0 && items.isDelete==0}">
+                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                    </samp>
+                                </form>
+
                         </div>
                         <div class="card-body">
                             <div class="row">

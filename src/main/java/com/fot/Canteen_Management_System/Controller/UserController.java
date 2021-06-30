@@ -104,7 +104,7 @@ public class UserController {
     public String logout(HttpServletRequest request)
     {
         request.getSession().invalidate();
-        return "redirect:/loginpage";
+        return "redirect:/";
     }
 
     @RequestMapping(path = "item",method = RequestMethod.GET)
@@ -133,11 +133,13 @@ public class UserController {
         if(users==null){
             return "redirect:/loginpage";
         }else{
+
             model.addAttribute("user_Order_item",user_Order_item);
             model.addAttribute("items",itemService.getuserItem());
             model.addAttribute("users",users);
 //            model.addAttribute("order_item",orderItem);
             return "User/OrderHistory";
+
         }
     }
 
@@ -169,6 +171,16 @@ public class UserController {
             model.addAttribute("users",user);
             model.addAttribute("users_obj",user1);
             return "User/user_profile";
+        }
+    }
+
+    @RequestMapping(path = "/delete_order",method = RequestMethod.POST)
+    public String delete_order(@RequestParam("id")Integer id){
+
+        if(orderItemService.deleteOrdere(id)){
+            return "redirect:/OrderHistory?success";
+        }else{
+            return "redirect:/OrderHistory?error";
         }
     }
 

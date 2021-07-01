@@ -137,7 +137,7 @@ public class UserController {
         }
     }
 
-    
+
 
     @GetMapping("/profile")
     public String profile(HttpSession session,Model model){
@@ -164,6 +164,19 @@ public class UserController {
             return "redirect:/OrderHistory?error";
         }
     }
+
+    @GetMapping("userdash")
+    public String userdash(Model model,HttpSession session){
+        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+
+        if(users==null){
+            return "redirect:/loginpage";
+        }else{
+            model.addAttribute("users",users);
+            return "User/user_dash";
+        }
+    }
+
 
     @RequestMapping(path = "/update_profile",method = RequestMethod.POST)
     public String update_profile(@ModelAttribute("User")User user,HttpSession session){

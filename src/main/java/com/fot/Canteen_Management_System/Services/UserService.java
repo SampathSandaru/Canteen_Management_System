@@ -1,6 +1,7 @@
 package com.fot.Canteen_Management_System.Services;
 
 import com.fot.Canteen_Management_System.Dto.UserPwd;
+import com.fot.Canteen_Management_System.Entity.ChangePwdLog;
 import com.fot.Canteen_Management_System.Entity.User;
 import com.fot.Canteen_Management_System.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,5 +92,9 @@ public class UserService {
         }else {
             return false;
         }
+    }
+
+    public List<ChangePwdLog> pwdchnagedate(Integer id){
+         return  userRepository.pwdchnagedate(id);
     }
 }

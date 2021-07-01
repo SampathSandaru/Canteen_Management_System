@@ -17,9 +17,6 @@ public interface ItemRepository extends CrudRepository<Item,Integer> {
     @Query(value = "SELECT i FROM Item i WHERE i.isDelete=0")
     Collection<Item> findAll();
 
-//    @Query(value =  "SELECT i FROM Item i WHERE i.quantity>0 AND i.isDelete=0")
-//    Collection<Item> findavailableitem();
-
     @Query(value = "{call  findAvailableItem}",nativeQuery = true)
     List<Item> findavailableitem();
 

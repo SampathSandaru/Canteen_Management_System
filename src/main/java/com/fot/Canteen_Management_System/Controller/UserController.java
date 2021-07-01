@@ -2,6 +2,7 @@ package com.fot.Canteen_Management_System.Controller;
 
 import com.fot.Canteen_Management_System.Dto.OrderItemDto;
 import com.fot.Canteen_Management_System.Dto.UserPwd;
+import com.fot.Canteen_Management_System.Entity.ChangePwdLog;
 import com.fot.Canteen_Management_System.Entity.OrderItem;
 import com.fot.Canteen_Management_System.Entity.User;
 import com.fot.Canteen_Management_System.Repository.OrderItemRepository;
@@ -166,8 +167,8 @@ public class UserController {
             Integer userId=Integer.parseInt(user.get(0));
             User user1=userService.getUserId(userId);
 
-            List<UserPwd> user2=userRepository.pwdchnagedate(userId);
-            model.addAttribute("pwdchagedate",user2);
+//            List<ChangePwdLog> user2=userService.pwdchnagedate(userId);
+            model.addAttribute("pwdchagedate",userService.pwdchnagedate(userId));
             model.addAttribute("users",user);
             model.addAttribute("users_obj",user1);
             return "User/user_profile";

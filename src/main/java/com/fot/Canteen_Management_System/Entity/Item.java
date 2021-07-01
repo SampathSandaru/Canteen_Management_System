@@ -14,7 +14,6 @@ public class Item {
     private Integer quantity;
     private String img_path;
     private float price;
-//    private Integer cat_id;
     private Integer isDelete=0;
 
     public Integer getItem_id() {

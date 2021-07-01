@@ -132,23 +132,12 @@ public class UserController {
             model.addAttribute("user_Order_item",user_Order_item);
             model.addAttribute("items",itemService.getuserItem());
             model.addAttribute("users",users);
-//            model.addAttribute("order_item",orderItem);
             return "User/OrderHistory";
 
         }
     }
 
-    @GetMapping("userdash")
-    public String userdash(Model model,HttpSession session){
-        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
-
-        if(users==null){
-            return "redirect:/loginpage";
-        }else{
-            model.addAttribute("users",users);
-            return "User/user_dash";
-        }
-    }
+    
 
     @GetMapping("/profile")
     public String profile(HttpSession session,Model model){
@@ -159,8 +148,6 @@ public class UserController {
         }else {
             Integer userId=Integer.parseInt(user.get(0));
             User user1=userService.getUserId(userId);
-
-//            List<ChangePwdLog> user2=userService.pwdchnagedate(userId);
             model.addAttribute("pwdchagedate",userService.pwdchnagedate(userId));
             model.addAttribute("users",user);
             model.addAttribute("users_obj",user1);

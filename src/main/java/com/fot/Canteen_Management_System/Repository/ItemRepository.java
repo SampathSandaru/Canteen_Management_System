@@ -20,10 +20,6 @@ public interface ItemRepository extends CrudRepository<Item,Integer> {
     @Query(value = "{call  findAvailableItem}",nativeQuery = true)
     List<Item> findavailableitem();
 
-//    @Modifying
-//    @Query(value = "UPDATE Item i set i.quantity = i.quantity-:quantity WHERE i.item_id=:item_id")
-//    @Transactional
-
     @Modifying
     @Query(value = "{call  reduceItem(:item_id,:quantity)}",nativeQuery = true)
     @Transactional

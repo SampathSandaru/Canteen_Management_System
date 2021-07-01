@@ -1,6 +1,5 @@
 package com.fot.Canteen_Management_System.Services;
 
-import com.fot.Canteen_Management_System.Dto.UserPwd;
 import com.fot.Canteen_Management_System.Entity.ChangePwdLog;
 import com.fot.Canteen_Management_System.Entity.User;
 import com.fot.Canteen_Management_System.Repository.UserRepository;
@@ -95,6 +94,7 @@ public class UserService {
     }
 
     public List<ChangePwdLog> pwdchnagedate(Integer id){
+        System.out.println(id);
          return  userRepository.pwdchnagedate(id);
     }
 }

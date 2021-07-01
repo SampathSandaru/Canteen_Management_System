@@ -1,12 +1,9 @@
 package com.fot.Canteen_Management_System.Controller;
 
 import com.fot.Canteen_Management_System.Dto.OrderItemDto;
-import com.fot.Canteen_Management_System.Dto.UserPwd;
-import com.fot.Canteen_Management_System.Entity.ChangePwdLog;
 import com.fot.Canteen_Management_System.Entity.OrderItem;
 import com.fot.Canteen_Management_System.Entity.User;
 import com.fot.Canteen_Management_System.Repository.OrderItemRepository;
-import com.fot.Canteen_Management_System.Repository.UserRepository;
 import com.fot.Canteen_Management_System.Services.ItemService;
 import com.fot.Canteen_Management_System.Services.OrderItemService;
 import com.fot.Canteen_Management_System.Services.SendEmailService;
@@ -22,7 +19,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -35,8 +31,6 @@ public class UserController {
     private OrderItemService orderItemService;
     @Autowired
     private OrderItemRepository orderItemRepository;
-    @Autowired
-    private UserRepository userRepository;
     @Autowired
     private SendEmailService sendEmailService;
 
@@ -155,7 +149,6 @@ public class UserController {
             return "User/user_dash";
         }
     }
-
 
     @GetMapping("/profile")
     public String profile(HttpSession session,Model model){

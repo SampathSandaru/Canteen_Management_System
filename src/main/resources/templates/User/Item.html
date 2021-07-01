@@ -67,35 +67,7 @@
             Your order successful.
         </div>
     </div>
-    <div class="content">
-        <div class="animated fadeIn">
-            <div class="row row-cols-1 row-cols-md-4 g-4">
-                <div class="col" th:each="items:${items}">
-                    <div class="card">
-                        <img class="card-img-top card_img" height="200px"
-                             th:src="@{/Admin/img/item/item_{name}(name= ${items.getImg_path()})}">
-                        <div class="card-body ">
-                            <div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Name : <label th:text="${items.getItem_name()}"></label>
-                                    </li>
-                                    <li class="list-group-item">Quantity : <label
-                                            th:text="${items.getQuantity()}"></label></li>
-                                    <li class="list-group-item">Price : <label th:text="${items.getPrice()}"></label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <small class="btn btn-primary" style="float: left" title="order" data-bs-toggle="modal"
-                                   data-bs-target="#staticBackdrop"
-                                   th:onclick="edit([[${items.getItem_id()}]],[[${items.getItem_name()}]],[[${items.getPrice()}]],[[${items.getQuantity()}]])">Order</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

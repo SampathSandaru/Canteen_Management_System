@@ -171,16 +171,6 @@ public class UserController {
         }
     }
 
-    @RequestMapping(path = "/delete_order",method = RequestMethod.POST)
-    public String delete_order(@RequestParam("id")Integer id){
-
-        if(orderItemService.deleteOrdere(id)){
-            return "redirect:/OrderHistory?success";
-        }else{
-            return "redirect:/OrderHistory?error";
-        }
-    }
-
     @GetMapping("userdash")
     public String userdash(Model model,HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");

@@ -117,6 +117,22 @@ public class UserController {
         }
     }
 
+    @RequestMapping(path = "/orderitem",method = RequestMethod.POST)
+    public String orderitem(@ModelAttribute("OrderItem")OrderItem orderItem, HttpSession session){
+        List<String> users= (List<String>) session.getAttribute("USER_SESSION");
+        orderItem.setU_id(Integer.parseInt(users.get(0)));
+        LocalDate date = LocalDate.now();
+
+        float tot=orderItem.getQuantity()*orderItem.getPrice();
+        orderItem.setPrice(tot);
+        orderItem.setOrder_time(date);
+        itemService.reduce(orderItem.getQuantity(),orderItem.getItem_id());
+
+        orderItemService.save(orderItem);
+        return "redirect:/item?ordersuccess";
+    }
+
+
     @RequestMapping(path = "OrderHistory",method = RequestMethod.GET)
     public String OrderHistory(Model model,HttpSession session){
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
@@ -206,7 +222,7 @@ public class UserController {
        }
     }
 
-    
+
 
     @GetMapping(path = "/email")
     public String email(){

@@ -100,7 +100,7 @@
                     th:src="@{/Admin/img/item/item_{name}(name= ${items.img_path})}" style="width: 150px;height: 120px;border-radius: 15px;"></td>
               <td>
                 <input type="button" class="btn btn-primary" value="Order" th:if="${items.isDelete==0}" data-bs-toggle="modal"
-                       data-bs-target="#staticBackdrop" th:onclick="order([[${items.user_id}]],[[${items.item_id}]],[[${items.orderID}]],[[${items.name}]],[[${items.Item_name}]],[[${items.price}]],[[${items.img_path}]],[[${items.quantity}]])">
+                       data-bs-target="#staticBackdrop" th:onclick="order([[${items.user_id}]],[[${items.item_id}]],[[${items.orderID}]],[[${items.name}]],[[${items.Item_name}]],[[${items.price}]],[[${items.img_path}]],[[${items.quantity}]],[[${users.get(2)}]])">
                 <span th:if="${items.isDelete==1}">Not Available</span>
               </td>
             </tr>
@@ -131,6 +131,7 @@
         <form  method="post" th:action="@{/invoice}">
 <!--        <form  method="post" th:action="@{/invoice}" th:object="${invoices}">-->
           <input type="hidden" id="orderID" name="order_id">
+          <input type="hidden" id="email" name="email">
 <!--          <input type="hidden" id="user_id" th:field="*{user_id}">-->
 <!--          <input type="hidden" id="orderID" th:field="*{orderID}">-->
           <div class="mb-3">
@@ -139,15 +140,15 @@
           </div>
           <div class="mb-3">
             <label class="col-form-label">Item Name:</label>
-            <input type="text" class="form-control" id="item_name" readonly >
+            <input type="text" class="form-control" id="item_name" name="item_name" readonly >
           </div>
           <div class="mb-3">
             <label class="col-form-label">Price: Rs</label>
-            <input type="text" class="form-control" id="itemprice" readonly>
+            <input type="text" class="form-control" id="itemprice" name="itemprice" readonly>
           </div>
           <div class="mb-3">
             <label class="col-form-label">Quantity</label>
-            <input type="text" class="form-control" id="quantity" readonly>
+            <input type="text" class="form-control" id="quantity" name="quantity" readonly>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -162,7 +163,7 @@
 
 <!-- Button trigger modal -->
 <script>
-  function order(user_id,item_id,orderID,name,item_name,itemprice,img_path,quantity){
+  function order(user_id,item_id,orderID,name,item_name,itemprice,img_path,quantity,email){
     // alert(orderID);
     document.getElementById("userName").value=name;
     document.getElementById("item_name").value=item_name;
@@ -172,6 +173,7 @@
     // document.getElementById("item_id").value=item_id;
     document.getElementById("img_path").src="/Admin/img/item/item_"+img_path;
     document.getElementById("orderID").value=orderID;
+    document.getElementById("email").value=email;
   }
 </script>
 

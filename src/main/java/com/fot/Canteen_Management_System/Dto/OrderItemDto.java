@@ -24,6 +24,7 @@ public class OrderItemDto {
     private Integer user_id;
     private Integer item_id;
     private Integer orderID;
+    private String email;
 
 
 }

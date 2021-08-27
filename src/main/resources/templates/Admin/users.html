@@ -78,6 +78,11 @@
                                 <th>Role</th>
                             </tr>
                             <tr th:each="user,i:${allnuser}">
+                                <td>
+<!--                                    <select >-->
+<!--                                        <option  th:each="user:${allnuser}" th:value="${user.name}" th:text="${user.name}"></option>-->
+<!--                                    </select>-->
+                                </td>
                                 <td th:text="${i.count}"></td>
                                 <td th:text="${user.name}"></td>
                                 <td th:text="${user.Mobile}"></td>

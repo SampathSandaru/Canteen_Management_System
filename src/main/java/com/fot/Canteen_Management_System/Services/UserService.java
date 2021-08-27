@@ -3,6 +3,7 @@ package com.fot.Canteen_Management_System.Services;
 import com.fot.Canteen_Management_System.Entity.ChangePwdLog;
 import com.fot.Canteen_Management_System.Entity.User;
 import com.fot.Canteen_Management_System.Repository.UserRepository;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,15 @@ public class UserService {
     private UserRepository userRepository;
 
     public void save(User user){
+        String pwd=user.getPassword();
+        String hash_pwd= DigestUtils.sha1Hex(pwd);
+        user.setPassword(hash_pwd);
         userRepository.save(user);
     }
 
     public User login(String email,String password){
-        User user=userRepository.findByEmailAndPassword(email,password);
+        String hash_pwd= DigestUtils.sha1Hex(password);
+        User user=userRepository.findByEmailAndPassword(email,hash_pwd);
         return user;
     }
 
@@ -47,10 +52,12 @@ public class UserService {
     public Boolean chang_password(String current_pwd,Integer id,String new_pwd){
         if(userRepository.findById(id).isPresent()){
             User user=userRepository.findById(id).get();
-            if(user.getPassword().equals(current_pwd)){
-                System.out.println("current pwd "+user.getPassword());
-                System.out.println("new pwd "+new_pwd);
-                user.setPassword(new_pwd);
+
+            String hash_current_pwd= DigestUtils.sha1Hex(current_pwd);
+            String new_password= DigestUtils.sha1Hex(new_pwd);
+
+            if(user.getPassword().equals(hash_current_pwd)){
+                user.setPassword(new_password);
                 userRepository.save(user);
                 return true;
             }else{
@@ -83,9 +90,10 @@ public class UserService {
     }
 
     public Boolean reset_password(String password,Integer id) {
+        String new_pwd= DigestUtils.sha1Hex(password);
         if (userRepository.findById(id).isPresent()){
             User user=userRepository.findById(id).get();
-            user.setPassword(password);
+            user.setPassword(new_pwd);
             userRepository.save(user);
             return true;
         }else {

@@ -7,6 +7,7 @@ import com.fot.Canteen_Management_System.Entity.OrderItem;
 import com.fot.Canteen_Management_System.Entity.User;
 import com.fot.Canteen_Management_System.Repository.OrderItemRepository;
 import com.fot.Canteen_Management_System.Services.*;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,10 +57,8 @@ public class Admin {
         List<String> users= (List<String>) session.getAttribute("USER_SESSION");
 
         List<OrderItemDto> user_Order_item= orderItemRepository.getorder(); //join query
-//        Invoices invoices=new Invoices();
 
         model.addAttribute("user_Order_item",user_Order_item);
-//        model.addAttribute("invoices",invoices);
         model.addAttribute("users",users);
 
         if(users==null){
@@ -91,8 +90,10 @@ public class Admin {
     }
 
     @RequestMapping(path = "/invoice",method = RequestMethod.POST)
-    public String invoice(@RequestParam("order_id")Integer orderid){
+    public String invoice(@RequestParam("order_id")Integer orderid,@RequestParam("item_name")String item_name,@RequestParam("itemprice")String itemprice,@RequestParam("quantity")Integer quantity,@RequestParam("email")String email){
         invoicesService.save(orderid);
+        String details="Item name : "+item_name+"\n"+"Order ID : "+orderid+"\n"+"Price : "+itemprice+"\n"+"Quantity : "+quantity;
+        sendEmailService.sendEmial(email, details, "Invoice");
         return "redirect:/newOrder?success";
     }
 
@@ -160,7 +161,7 @@ public class Admin {
         user.setPassword(password);
         user.setRole("canteenmanager");
         userService.save(user);
-        return "redirect:/loginpage";
+        return "redirect:/admin";
     }
 
     @RequestMapping(path = "/approveuser",method = RequestMethod.POST)
